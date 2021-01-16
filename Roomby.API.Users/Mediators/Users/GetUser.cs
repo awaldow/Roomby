@@ -33,8 +33,9 @@ namespace Roomby.API.Users.Mediators
             return Task.FromResult(new User
             {
                 Id = Guid.NewGuid(),
-                Household = Guid.NewGuid(),
-                FullName = "Addison Waldow"
+                HouseholdId = Guid.NewGuid(),
+                FullName = "Addison Waldow",
+                Email = "a.wal.bear@gmail.com",
             });
         }
     }

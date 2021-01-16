@@ -33,7 +33,7 @@ namespace Roomby.API.Users.Mediators
             return Task.FromResult(new Household
             {
                 Id = Guid.NewGuid(),
-                HeadOfHousehold = Guid.NewGuid(),
+                HeadOfHouseholdId = Guid.NewGuid(),
                 Name = "Addison's Household"
             });
         }
