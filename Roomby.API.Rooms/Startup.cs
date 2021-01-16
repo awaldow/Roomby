@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 
-namespace Roomby.API
+namespace Roomby.API.Rooms
 {
     public class Startup
     {

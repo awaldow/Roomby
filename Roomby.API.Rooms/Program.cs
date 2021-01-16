@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Roomby.API
+namespace Roomby.API.Rooms
 {
     public class Program
     {

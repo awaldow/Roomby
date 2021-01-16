@@ -5,7 +5,7 @@ using FluentValidation;
 using MediatR;
 using Roomby.API.Models;
 
-namespace Roomby.API.Mediators.Rooms
+namespace Roomby.API.Rooms.Mediators
 {
     public class GetRoom : IRequest<Room>
     {

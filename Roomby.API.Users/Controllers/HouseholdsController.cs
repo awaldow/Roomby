@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Roomby.API.Controllers
+namespace Roomby.API.Users.Controllers
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1")]
@@ -16,13 +16,13 @@ namespace Roomby.API.Controllers
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
-    public class RoomController : ControllerBase
+    public class HouseholdsController : ControllerBase
     {
          private readonly IMediator _mediator;
 
-        private readonly ILogger<RoomController> _logger;
+        private readonly ILogger<HouseholdsController> _logger;
 
-        public RoomController(IMediator mediator, ILogger<RoomController> logger)
+        public HouseholdsController(IMediator mediator, ILogger<HouseholdsController> logger)
         {
             _mediator = mediator;
             _logger = logger;
