@@ -30,7 +30,7 @@ namespace Roomby.API.Users.Mediators
 
         public Task<Household> Handle(GetHousehold request, CancellationToken cancellationToken)
         {
-            return Task.FromResult(new Household
+            return System.Threading.Tasks.Task.FromResult(new Household
             {
                 Id = Guid.NewGuid(),
                 HeadOfHouseholdId = Guid.NewGuid(),

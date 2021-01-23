@@ -11,6 +11,16 @@ Table rooms as R {
   household guid [ref: > households.id]
   icon varchar
   purchaseTotal decimal
+  boughtTotal decimal
+}
+
+Table roomTask as RT {
+  id guid [pk, increment]
+  room guid [ref: > rooms.id]
+  task guid [ref: > tasks.id]
+  productivity decimal
+  totalTasksCompleted int
+  totalDaysActive int
 }
 
 Table households as H {
@@ -41,16 +51,19 @@ Enum cadence {
   //custom
 }
 
-Table tasks as T [note: 'This will likely end up being stored in a document db']{
+Table tasks as T [note: 'This will likely end up being stored in a document db/Table storage']{
   id guid [pk, increment]
   room guid [ref: > rooms.id]
   cadence cadence
   //customCadence varchar
   description varchar
   priority int
+  totalTasks int
+  lastTaskEnabledDate timestamp
+  enabled bool
 }
 
-Table purchases as P [note: 'This will likely end up being stored in a document db']{
+Table purchases as P [note: 'This will likely end up being stored in a document db/Table storage']{
   id guid [pk, increment]
   room guid [ref: > rooms.id]
   url varchar
