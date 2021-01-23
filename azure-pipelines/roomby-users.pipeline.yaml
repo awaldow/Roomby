@@ -1,0 +1,133 @@
+name: Roomby.API.Users-$(Date:yyyyMMdd)$(Rev:.r)
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - Roomby.API.Users
+
+variables:
+- name: buildConfiguration
+  value: 'Release'
+- name: projectPath
+  value: '**/Roomby.API.Users.csproj'
+- name: testProjectPath
+  value: '**/Roomby.API.Users.[Tt]ests/*.csproj'
+
+stages:
+- stage: 'Build'
+  displayName: 'Build the API'
+  jobs: 
+  - job: 'Build'
+    displayName: 'Build job'
+    pool:
+      vmImage: 'windows-2019'
+      demands:
+      - npm
+
+    steps:
+    - task: NuGetToolInstaller@0
+      displayName: 'Use NuGet 4.4.1'
+      inputs:
+        versionSpec: 4.4.1
+    
+    - task: UseDotNet@2
+      displayName: 'Use .NET Core sdk 3.1.404'
+      inputs:
+        version: 3.1.404
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet restore'
+      inputs:
+        command: restore
+        projects: '$(projectPath)'
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet build'
+      inputs:
+        projects: '$(projectPath)'
+        arguments: '--configuration $(buildConfiguration)'
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet test'
+      inputs:
+        command: test
+        projects: '$(testProjectPath)'
+        arguments: '--configuration $(buildConfiguration)'
+    
+    - task: DotNetCoreCLI@2
+      displayName: 'dotnet publish'
+      inputs:
+        command: publish
+        publishWebProjects: false
+        projects: '$(projectPath)'
+        arguments: '--configuration $(buildConfiguration) --output $(build.artifactstagingdirectory)'
+    
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: drop'
+      inputs:
+        PathtoPublish: '$(build.artifactstagingdirectory)'
+      condition: succeededOrFailed()
+
+- stage: 'Deploy'
+  dependsOn: Build
+  displayName: 'Deploy the API'
+  jobs:
+  - deployment: Test
+    displayName: 'Test'
+    environment: test
+    variables:
+    - group: Roomby Users API Secrets Test
+    - name: ApplicationInsights.ConnectionString
+      value: $(ApplicationInsights--ConnectionString)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: drop
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Azure App Service Deploy: app-roomby-users-test'
+            inputs:
+              azureSubscription: 'Roomby Test'
+              appType: webApp 
+              WebAppName: app-roomby-users-test
+              ResourceGroupName: rg-roomby-test
+              packageForLinux: '$(Pipeline.Workspace)\drop\*.zip'
+              
+  - deployment: Prod
+    displayName: 'Prod'
+    environment: production
+    variables:
+      - group: Roomby Users API Secrets Prod
+      - name: ApplicationInsights.ConnectionString
+        value: $(ApplicationInsights--ConnectionString)
+    dependsOn: Test
+    condition: eq(1,2)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: drop
+          - task: AzureRmWebAppDeployment@4
+            displayName: 'Azure App Service Deploy: app-roomby-users-prod staging slot'
+            inputs:
+              azureSubscription: 'Roomby Prod'
+              WebAppName: app-roomby-users
+              appType: webApp 
+              deployToSlotOrASE: true
+              ResourceGroupName: rg-roomby
+              SlotName: app-roomby-users-staging
+              packageForLinux: '$(Pipeline.Workspace)\drop\*.zip'
+          - task: AzureAppServiceManage@0
+            displayName: 'Swap Slots: app-roomby-users-prod'
+            inputs:
+              azureSubscription: 'Roomby Prod'
+              WebAppName: app-roomby-users
+              action: 'Swap Slots'
+              ResourceGroupName: rg-roomby
+              SourceSlot: app-roomby-users-staging
+              SwapWithProduction: true
+          
