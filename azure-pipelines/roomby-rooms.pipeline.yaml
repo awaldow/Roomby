@@ -85,9 +85,9 @@ stages:
         displayName: Install Terraform
 
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
-        displayName: 'Terraform : azurerm'
+        displayName: 'Terraform init'
         inputs:
-          command: 'init'
+          command: init
           backendServiceArm: 'Visual Studio Enterprise'
           backendAzureRmResourceGroupName: '$(backendResourceGroup)'
           backendAzureRmStorageAccountName: $(backendStorageAccountName)
@@ -96,16 +96,16 @@ stages:
           
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
         inputs:
-          command: 'plan'
-          providerAzureConnectedServiceName: 'Visual Studio Enterprise'
-          args: -out=terraform.plan
+          command: plan
+          environmentServiceNameAzureRM: 'Visual Studio Enterprise'
+          commandOptions: -out=terraform.plan
         displayName: Terraform Plan
 
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
         inputs:
-          command: 'apply'
-          providerAzureConnectedServiceName: 'Visual Studio Enterprise'
-          args: terraform.plan
+          command: apply
+          environmentServiceNameAzureRM: 'Visual Studio Enterprise'
+          commandOptions: terraform.plan
         displayName: Terraform Apply
 
 - stage: 'Deploy'
