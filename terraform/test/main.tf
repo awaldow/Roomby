@@ -107,8 +107,8 @@ resource "azurerm_app_service_plan" "roombyplan" {
   reserved            = true
 
   sku {
-    tier = "Free"
-    size = "F1"
+    tier = "Basic"
+    size = "B1"
   }
 
   tags = {
@@ -190,7 +190,7 @@ resource "azurerm_storage_account" "roombysqlstorage" {
 }
 
 resource "azurerm_sql_server" "roombysqlserver" {
-  name                         = "mssqlserver"
+  name                         = var.sql_server_name
   resource_group_name          = azurerm_resource_group.roombytest.name
   location                     = azurerm_resource_group.roombytest.location
   version                      = "12.0"
@@ -264,7 +264,7 @@ resource "azurerm_key_vault" "roombyroomstest" {
     ]
 
     secret_permissions = [
-      "get",
+      "get", "set", "delete"
     ]
 
     storage_permissions = [
@@ -319,7 +319,7 @@ resource "azurerm_key_vault" "roombyuserstest" {
     ]
 
     secret_permissions = [
-      "get",
+      "get", "set", "delete"
     ]
 
     storage_permissions = [
