@@ -3,10 +3,16 @@ terraform {
 
   backend "azurerm" {
   }
+
+  required_providers {
+    azurerm = {
+      source = "hashicorp/azurerm"
+      version = ">= 2.44.0"
+    }
+  }
 }
 
-provider "azurerm" {
-  version = ">=2.0.0"
+provider "azurerm" {  
   features {
     key_vault {
       purge_soft_delete_on_destroy = true
@@ -95,8 +101,8 @@ resource "azurerm_resource_group" "roombytest" {
 
 resource "azurerm_app_service_plan" "roombyplan" {
   name                = var.app_service_plan_name
-  location            = azurerm_resource_group.spacegame.location
-  resource_group_name = azurerm_resource_group.spacegame.name
+  location            = azurerm_resource_group.roombytest.location
+  resource_group_name = azurerm_resource_group.roombytest.name
   kind                = "Linux"
   reserved            = true
 
@@ -111,7 +117,7 @@ resource "azurerm_app_service_plan" "roombyplan" {
 }
 
 resource "azurerm_app_service" "roombyroomstest" {
-  name                = "${var.rooms_app_service_name_prefix}"
+  name                = var.rooms_app_service_name_prefix
   location            = azurerm_resource_group.roombytest.location
   resource_group_name = azurerm_resource_group.roombytest.name
   app_service_plan_id = azurerm_app_service_plan.roombyplan.id
@@ -130,7 +136,7 @@ resource "azurerm_app_service" "roombyroomstest" {
 }
 
 resource "azurerm_app_service" "roombyuserstest" {
-  name                = "${var.users_app_service_name_prefix}"
+  name                = var.users_app_service_name_prefix
   location            = azurerm_resource_group.roombytest.location
   resource_group_name = azurerm_resource_group.roombytest.name
   app_service_plan_id = azurerm_app_service_plan.roombyplan.id
@@ -149,8 +155,8 @@ resource "azurerm_app_service" "roombyuserstest" {
 }
 
 resource "azurerm_application_insights" "roombyappi" {
-  name                = "${var.application_insights_name}"
-  location            = azuvrerm_resource_group.roombytest.location
+  name                = var.application_insights_name
+  location            = azurerm_resource_group.roombytest.location
   resource_group_name = azurerm_resource_group.roombytest.name
   application_type    = "web"
 
@@ -160,7 +166,7 @@ resource "azurerm_application_insights" "roombyappi" {
 }
 
 resource "azurerm_storage_account" "roombystorage" {
-  name = "${var.storage_account_name}"
+  name = var.storage_account_name
   resource_group_name      = azurerm_resource_group.roombytest.name
   location                 = azurerm_resource_group.roombytest.location
   account_tier             = "Standard"
@@ -172,7 +178,7 @@ resource "azurerm_storage_account" "roombystorage" {
 }
 
 resource "azurerm_storage_account" "roombysqlstorage" {
-  name = "${var.sqlstorage_account_name}"
+  name = var.sqlstorage_account_name
   resource_group_name      = azurerm_resource_group.roombytest.name
   location                 = azurerm_resource_group.roombytest.location
   account_tier             = "Standard"
@@ -188,8 +194,8 @@ resource "azurerm_sql_server" "roombysqlserver" {
   resource_group_name          = azurerm_resource_group.roombytest.name
   location                     = azurerm_resource_group.roombytest.location
   version                      = "12.0"
-  administrator_login          = "${var.sql_server_admin}"
-  administrator_login_password = "${var.sql_server_admin_pass}"
+  administrator_login          = var.sql_server_admin
+  administrator_login_password = var.sql_server_admin_pass
 
   tags = {
     environment = "test"
@@ -197,51 +203,49 @@ resource "azurerm_sql_server" "roombysqlserver" {
 }
 
 resource "azurerm_mssql_database" "roombyusersdb" {
-  name                = "${var.rooms_sql_db_name}"
-  resource_group_name = azurerm_resource_group.roombytest.name
-  location            = azurerm_resource_group.roombytest.name
+  name                = var.rooms_sql_db_name
   collation      = "SQL_Latin1_General_CP1_CI_AS"
   server_id         = azurerm_sql_server.roombysqlserver.id
   max_size_gb   = 32
   sku_name = "GP_S_Gen5_2"
   storage_account_type = "LRS"
 
-  extended_auditing_policy {
-    storage_endpoint                        = azurerm_storage_account.roombysqlstorage.primary_blob_endpoint
-    storage_account_access_key              = azurerm_storage_account.roombysqlstorage.primary_access_key
-    storage_account_access_key_is_secondary = true
-    retention_in_days                       = 6
-  }
-
   tags = {
     environment = "production"
   }
+}
+
+resource "azurerm_mssql_database_extended_auditing_policy" "roombyusersdbauditing" {
+  storage_endpoint                        = azurerm_storage_account.roombysqlstorage.primary_blob_endpoint
+  storage_account_access_key              = azurerm_storage_account.roombysqlstorage.primary_access_key
+  storage_account_access_key_is_secondary = false
+  retention_in_days                       = 6
+  database_id                             = azurerm_mssql_database.roombyusersdb.id
 }
 
 resource "azurerm_mssql_database" "roombyroomsdb" {
-  name                = "${var.users_sql_db_name}"
-  resource_group_name = azurerm_resource_group.example.name
-  location            = azurerm_resource_group.example.name
+  name                = var.users_sql_db_name
   collation      = "SQL_Latin1_General_CP1_CI_AS"
   server_id         = azurerm_sql_server.roombysqlserver.id
   max_size_gb   = 32
   sku_name = "GP_S_Gen5_2"
   storage_account_type = "LRS"
 
-  extended_auditing_policy {
-    storage_endpoint                        = azurerm_storage_account.roombysqlstorage.primary_blob_endpoint
-    storage_account_access_key              = azurerm_storage_account.roombysqlstorage.primary_access_key
-    storage_account_access_key_is_secondary = true
-    retention_in_days                       = 6
-  }
-
   tags = {
     environment = "production"
   }
 }
 
+resource "azurerm_mssql_database_extended_auditing_policy" "roombyroomsdbauditing" {
+  storage_endpoint                        = azurerm_storage_account.roombysqlstorage.primary_blob_endpoint
+  storage_account_access_key              = azurerm_storage_account.roombysqlstorage.primary_access_key
+  storage_account_access_key_is_secondary = false
+  retention_in_days                       = 6
+  database_id                             = azurerm_mssql_database.roombyroomsdb.id
+}
+
 resource "azurerm_key_vault" "roombyroomstest" {
-  name                        = "${var.rooms_kv_name}"
+  name                        = var.rooms_kv_name
   location                    = azurerm_resource_group.roombytest.location
   resource_group_name         = azurerm_resource_group.roombytest.name
   enabled_for_disk_encryption = false
@@ -274,8 +278,7 @@ resource "azurerm_key_vault" "roombyroomstest" {
 }
 
 resource "azurerm_key_vault_access_policy" "roomsaccesspolicy" {
-  vault_name = azurerm_key_vault.roombyroomstest.name
-  resource_group_name = azurerm_resource_group.roombytest.name
+  key_vault_id = azurerm_key_vault.roombyroomstest.id
 
   tenant_id = data.azurerm_client_config.current.tenant_id
   object_id = azurerm_app_service.roombyroomstest.identity.0.principal_id
@@ -285,19 +288,19 @@ resource "azurerm_key_vault_access_policy" "roomsaccesspolicy" {
 }
 
 resource "azurerm_key_vault_secret" "roomsappinsightsconnection" {
-  name = "ApplicationInsights:ConnectionString"
+  name = "ApplicationInsights--ConnectionString"
   value = azurerm_application_insights.roombyappi.connection_string
-  key_vault_id = azurerm_key_vault.roombyroomstest.name
+  key_vault_id = azurerm_key_vault.roombyroomstest.id
 }
 
 resource "azurerm_key_vault_secret" "roomssqldbconnection" {
-  name = "ConnectionStrings:RoombyRoomSql"
-  value = "Server=tcp:${azurerm_sql_server.roombysqlserver.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_sql_database.roombyroomsdb.name};Persist Security Info=False;User ID=${azurerm_sql_server.roombysqlserver.administrator_login};Password=${azurerm_sql_server.roombysqlserver.administrator_login_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-  key_vault_id = azurerm_key_vault.roombyroomstest.name
+  name = "ConnectionStrings--RoombyRoomSql"
+  value = "Server=tcp:${azurerm_sql_server.roombysqlserver.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_mssql_database.roombyroomsdb.name};Persist Security Info=False;User ID=${azurerm_sql_server.roombysqlserver.administrator_login};Password=${azurerm_sql_server.roombysqlserver.administrator_login_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  key_vault_id = azurerm_key_vault.roombyroomstest.id
 }
 
 resource "azurerm_key_vault" "roombyuserstest" {
-  name                        = "${var.users_kv_name}"
+  name                        = var.users_kv_name
   location                    = azurerm_resource_group.roombytest.location
   resource_group_name         = azurerm_resource_group.roombytest.name
   enabled_for_disk_encryption = false
@@ -330,8 +333,7 @@ resource "azurerm_key_vault" "roombyuserstest" {
 }
 
 resource "azurerm_key_vault_access_policy" "usersaccesspolicy" {
-  vault_name = azurerm_key_vault.roombyuserstest.name
-  resource_group_name = azurerm_resource_group.roombytest.name
+  key_vault_id = azurerm_key_vault.roombyuserstest.id
 
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   object_id = azurerm_app_service.roombyuserstest.identity.0.principal_id
@@ -341,23 +343,23 @@ resource "azurerm_key_vault_access_policy" "usersaccesspolicy" {
 }
 
 resource "azurerm_key_vault_secret" "usersappinsightsconnection" {
-  name = "ApplicationInsights:ConnectionString"
+  name = "ApplicationInsights--ConnectionString"
   value = azurerm_application_insights.roombyappi.connection_string
-  key_vault_id = azurerm_key_vault.roombyuserstest.name
+  key_vault_id = azurerm_key_vault.roombyuserstest.id
 }
 
 resource "azurerm_key_vault_secret" "userssqldbconnection" {
-  name = "ConnectionStrings:RoombyRoomSql"
-  value = "Server=tcp:${azurerm_sql_server.roombysqlserver.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_sql_database.roombyusersdb.name};Persist Security Info=False;User ID=${azurerm_sql_server.roombysqlserver.administrator_login};Password=${azurerm_sql_server.roombysqlserver.administrator_login_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-  key_vault_id = azurerm_key_vault.roombyuserstest.name
+  name = "ConnectionStrings--RoombyRoomSql"
+  value = "Server=tcp:${azurerm_sql_server.roombysqlserver.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_mssql_database.roombyusersdb.name};Persist Security Info=False;User ID=${azurerm_sql_server.roombysqlserver.administrator_login};Password=${azurerm_sql_server.roombysqlserver.administrator_login_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  key_vault_id = azurerm_key_vault.roombyuserstest.id
 }
 
 output "instrumentation_key" {
-  value = azurerm_application_insights.example.instrumentation_key
+  value = azurerm_application_insights.roombyappi.instrumentation_key
 }
 
 output "application_insights_app_id" {
-  value = azurerm_application_insights.example.app_id
+  value = azurerm_application_insights.roombyappi.app_id
 }
 
 output "users_app_service_name" {
