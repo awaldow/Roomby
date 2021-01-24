@@ -23,8 +23,6 @@ stages:
     displayName: 'Build job'
     pool:
       vmImage: 'windows-2019'
-      demands:
-      - npm
 
     steps:
     - task: NuGetToolInstaller@0
@@ -70,8 +68,48 @@ stages:
         PathtoPublish: '$(build.artifactstagingdirectory)'
       condition: succeededOrFailed()
 
-- stage: 'Deploy'
+- stage: 'Provision'
   dependsOn: Build
+  displayName: 'Provision app infrastructure with terraform'
+  jobs:
+  - job: 'Provision_Test'
+    displayName: 'Provision Test infrastructure'
+    variables:
+      - group: Roomby Rooms Terraform Test Backend Config
+    pool:
+      vmImage: 'windows-2019'
+    steps:
+      - task: terraformInstaller@0
+        inputs:
+          terraformVersion: '0.12.12'
+        displayName: Install Terraform
+
+      - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+        displayName: 'Terraform : azurerm'
+        inputs:
+          command: 'init'
+          backendServiceArm: 'Visual Studio Enterprise'
+          backendAzureRmResourceGroupName: '$(backendResourceGroup)'
+          backendAzureRmStorageAccountName: $(backendStorageAccountName)
+          backendAzureRmContainerName: $(backendContainerName)
+          backendAzureRmKey: $(backendKeyFile)
+          
+      - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+        inputs:
+          command: 'plan'
+          providerAzureConnectedServiceName: 'Visual Studio Enterprise'
+          args: -out=terraform.plan
+        displayName: Terraform Plan
+
+      - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+        inputs:
+          command: 'apply'
+          providerAzureConnectedServiceName: 'Visual Studio Enterprise'
+          args: terraform.plan
+        displayName: Terraform Apply
+
+- stage: 'Deploy'
+  dependsOn: Provision
   displayName: 'Deploy the API'
   jobs:
   - deployment: Test
