@@ -210,6 +210,7 @@ resource "azurerm_mssql_database" "roombyusersdb" {
   sku_name = "GP_S_Gen5_2"
   storage_account_type = "LRS"
   min_capacity = 1
+  auto_pause_delay_in_minutes = 15
 
   tags = {
     environment = "test"
@@ -232,6 +233,7 @@ resource "azurerm_mssql_database" "roombyroomsdb" {
   sku_name = "GP_S_Gen5_2"
   storage_account_type = "LRS"
   min_capacity = 1
+  auto_pause_delay_in_minutes = 15
 
   tags = {
     environment = "test"
