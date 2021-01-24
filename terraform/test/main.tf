@@ -209,9 +209,10 @@ resource "azurerm_mssql_database" "roombyusersdb" {
   max_size_gb   = 32
   sku_name = "GP_S_Gen5_2"
   storage_account_type = "LRS"
+  min_capacity = 1
 
   tags = {
-    environment = "production"
+    environment = "test"
   }
 }
 
@@ -230,9 +231,10 @@ resource "azurerm_mssql_database" "roombyroomsdb" {
   max_size_gb   = 32
   sku_name = "GP_S_Gen5_2"
   storage_account_type = "LRS"
+  min_capacity = 1
 
   tags = {
-    environment = "production"
+    environment = "test"
   }
 }
 
@@ -264,7 +266,7 @@ resource "azurerm_key_vault" "roombyroomstest" {
     ]
 
     secret_permissions = [
-      "get", "set", "delete"
+      "get", "set", "delete", "purge"
     ]
 
     storage_permissions = [
@@ -319,7 +321,7 @@ resource "azurerm_key_vault" "roombyuserstest" {
     ]
 
     secret_permissions = [
-      "get", "set", "delete"
+      "get", "set", "delete", "purge"
     ]
 
     storage_permissions = [
