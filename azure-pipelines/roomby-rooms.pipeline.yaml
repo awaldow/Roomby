@@ -123,7 +123,7 @@ stages:
         inputs:
           command: plan
           environmentServiceNameAzureRM: 'Visual Studio Enterprise'
-          commandOptions: -out=terraform.plan
+          commandOptions: -out=terraform.plan -var 'resource_group_location=$(resourceGroupLocation)' -var 'sql_server_admin=$(sqlServerAdmin)' -var 'sql_server_admin_pass=$(sqlServerAdminPass)'
           workingDirectory: '$(Pipeline.Workspace)\terraformtest'
         displayName: Terraform Plan
 
