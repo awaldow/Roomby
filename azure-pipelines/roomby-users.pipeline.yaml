@@ -119,13 +119,14 @@ stages:
           backendAzureRmStorageAccountName: $(backendStorageAccountName)
           backendAzureRmContainerName: $(backendContainerName)
           backendAzureRmKey: $(backendKeyFile)
-          workingDirectory: '$(Pipeline.Workspace)/terraform'
+          workingDirectory: '$(Pipeline.Workspace)/terraformtest'
 
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
         inputs:
           command: plan
           environmentServiceNameAzureRM: 'Visual Studio Enterprise'
           commandOptions: -out=terraform.plan
+          workingDirectory: '$(Pipeline.Workspace)/terraformtest'
         displayName: Terraform Plan
 
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
@@ -134,6 +135,7 @@ stages:
           command: apply
           environmentServiceNameAzureRM: 'Visual Studio Enterprise'
           commandOptions: terraform.plan
+          workingDirectory: '$(Pipeline.Workspace)/terraformtest'
         displayName: Terraform Apply
 
       - powershell: |
