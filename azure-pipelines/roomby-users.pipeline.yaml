@@ -78,11 +78,11 @@ stages:
         PathToPublish: '$(terraformTestPath)'
         ArtifactName: terraformtest
 
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: Terraform prod'
-      inputs:
-        PathToPublish: '$(terraformProdPath)'
-        ArtifactName: terraformprod
+    # - task: PublishBuildArtifacts@1
+    #   displayName: 'Publish Artifact: Terraform prod'
+    #   inputs:
+    #     PathToPublish: '$(terraformProdPath)'
+    #     ArtifactName: terraformprod
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: code'
