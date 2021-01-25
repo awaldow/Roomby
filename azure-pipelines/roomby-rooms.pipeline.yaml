@@ -159,8 +159,8 @@ stages:
             inputs:
               azureSubscription: '$(testSubscription)'
               appType: webApp 
-              WebAppName: $(terraformOutput.rooms_app_service_name)
-              ResourceGroupName: $(terraformOutput.resource_group)
+              WebAppName: $[dependencies.Provision_Test['terraformOutput.rooms_app_service_name']]
+              ResourceGroupName: $[dependencies.Provision_Test['terraformOutput.resource_group']]
               packageForLinux: '$(Pipeline.Workspace)\code\*.zip'
               
   - deployment: Prod
