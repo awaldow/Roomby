@@ -11,5 +11,7 @@ namespace Roomby.API.Models
         public Guid RoomId { get; set; }
         public Guid TaskId { get; set; }
         public virtual Room Room { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime ModifiedAt { get; set; }
     }
 }
