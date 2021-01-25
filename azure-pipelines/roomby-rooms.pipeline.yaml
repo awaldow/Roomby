@@ -144,11 +144,12 @@ stages:
   - deployment: Test
     displayName: 'Test'
     environment: test
-    condition: eq(1,2)
     variables:
     - group: Roomby Rooms API Secrets Test
     - name: ApplicationInsights.ConnectionString
       value: $(ApplicationInsights--ConnectionString)
+    - name: webAppName
+      value: $[dependencies.Provision_Test['terraformOutput.rooms_app_service_name']]
     strategy:
       runOnce:
         deploy:
@@ -160,7 +161,7 @@ stages:
             inputs:
               azureSubscription: '$(testSubscription)'
               appType: webApp 
-              WebAppName: $[dependencies.Provision_Test['terraformOutput.rooms_app_service_name']]
+              WebAppName: $(webAppName)
               ResourceGroupName: $[dependencies.Provision_Test['terraformOutput.resource_group']]
               packageForLinux: '$(Pipeline.Workspace)\code\*.zip'
               
