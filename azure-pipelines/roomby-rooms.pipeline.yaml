@@ -70,18 +70,19 @@ stages:
       displayName: 'Publish Artifact: Terraform test'
       inputs:
         PathToPublish: '$(terraformTestPath)'
-        TargetPath: '$(Build.ArtifactStagingDirectory)/terraform/test'
+        ArtifactName: terraformtest
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: Terraform prod'
       inputs:
         PathToPublish: '$(terraformProdPath)'
-        TargetPath: '$(Build.ArtifactStagingDirectory)/terraform/prod'
+        ArtifactName: terraformprod
 
     - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: drop'
+      displayName: 'Publish Artifact: code'
       inputs:
         PathtoPublish: '$(build.artifactstagingdirectory)'
+        ArtifactName: code
       condition: succeededOrFailed()
 
 - stage: 'Deploy'
@@ -97,7 +98,7 @@ stages:
       vmImage: 'windows-2019'
     steps:
       - download: current
-        artifact: drop
+        artifact: terraformtest
 
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
         inputs:

@@ -72,16 +72,19 @@ stages:
       displayName: 'Publish Artifact: Terraform test'
       inputs:
         PathToPublish: '$(terraformTestPath)'
+        ArtifactName: terraformtest
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: Terraform prod'
       inputs:
         PathToPublish: '$(terraformProdPath)'
+        ArtifactName: terraformprod
 
     - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: drop'
+      displayName: 'Publish Artifact: code'
       inputs:
         PathtoPublish: '$(build.artifactstagingdirectory)'
+        ArtifactName: code
       condition: succeededOrFailed()
 
 - stage: 'Deploy'
