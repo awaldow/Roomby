@@ -70,11 +70,13 @@ stages:
       displayName: 'Publish Artifact: Terraform test'
       inputs:
         PathToPublish: '$(terraformTestPath)'
+        TargetPath: '$(Build.ArtifactStagingDirectory)/terraform/test'
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: Terraform prod'
       inputs:
         PathToPublish: '$(terraformProdPath)'
+        TargetPath: '$(Build.ArtifactStagingDirectory)/terraform/prod'
 
     - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: drop'
