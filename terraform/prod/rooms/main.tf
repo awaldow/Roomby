@@ -92,8 +92,8 @@ resource "azurerm_app_service_plan" "roombyplan" {
   reserved            = true
 
   sku {
-    tier = "Free"
-    size = "F1"
+    tier = "Basic"
+    size = "B1"
   }
 
   tags = {
