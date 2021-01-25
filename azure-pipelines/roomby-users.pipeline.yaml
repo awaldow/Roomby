@@ -14,6 +14,10 @@ variables:
   value: '**/Roomby.API.Users.csproj'
 - name: testProjectPath
   value: '**/Roomby.API.Users.[Tt]ests/*.csproj'
+- name: terraformTestPath
+  value: 'terraform/test/users/'
+- name: terraformProdPath
+  value: 'terraform/prod/users/'
 
 stages:
 - stage: 'Build'
@@ -65,6 +69,16 @@ stages:
         arguments: '--configuration $(buildConfiguration) --output $(build.artifactstagingdirectory)'
     
     - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: Terraform test'
+      inputs:
+        PathToPublish: '$(terraformTestPath)'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: Terraform prod'
+      inputs:
+        PathToPublish: '$(terraformProdPath)'
+
+    - task: PublishBuildArtifacts@1
       displayName: 'Publish Artifact: drop'
       inputs:
         PathtoPublish: '$(build.artifactstagingdirectory)'
@@ -73,6 +87,7 @@ stages:
 - stage: 'Deploy'
   dependsOn: Build
   displayName: 'Deploy the API'
+  condition: eq(1,2)
   jobs:
   - job: 'Provision_Test'
     displayName: 'Provision Test infrastructure'
@@ -81,6 +96,9 @@ stages:
     pool:
       vmImage: 'windows-2019'
     steps:
+      - download: current
+        artifact: drop
+
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
         inputs:
           terraformVersion: '0.12.12'
@@ -95,7 +113,8 @@ stages:
           backendAzureRmStorageAccountName: $(backendStorageAccountName)
           backendAzureRmContainerName: $(backendContainerName)
           backendAzureRmKey: $(backendKeyFile)
-          
+          workingDirectory: '$(Pipeline.Workspace)'
+
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
         inputs:
           command: plan
