@@ -97,7 +97,7 @@ resource "azurerm_app_service_plan" "roombyplan" {
   }
 
   tags = {
-    environment = "test"
+    environment = "prod"
   }
 }
 
@@ -116,7 +116,7 @@ resource "azurerm_app_service" "roombyuserstest" {
   }
 
   tags = {
-    environment = "test"
+    environment = "prod"
   }
 }
 
@@ -127,7 +127,7 @@ resource "azurerm_application_insights" "roombyappi" {
   application_type    = "web"
 
   tags = {
-    environment = "test"
+    environment = "prod"
   }
 }
 
@@ -139,7 +139,7 @@ resource "azurerm_storage_account" "roombystorage" {
   account_replication_type = "LRS"
 
   tags = {
-    environment = "test"
+    environment = "prod"
   }
 }
 
@@ -151,7 +151,7 @@ resource "azurerm_storage_account" "roombysqlstorage" {
   account_replication_type = "RAGRS"
 
   tags = {
-    environment = "test"
+    environment = "prod"
   }
 }
 
@@ -164,7 +164,7 @@ resource "azurerm_sql_server" "roombysqlserver" {
   administrator_login_password = var.sql_server_admin_pass
 
   tags = {
-    environment = "test"
+    environment = "prod"
   }
 }
 
@@ -179,7 +179,7 @@ resource "azurerm_mssql_database" "roombyusersdb" {
   auto_pause_delay_in_minutes = 60
 
   tags = {
-    environment = "test"
+    environment = "prod"
   }
 }
 
@@ -220,7 +220,7 @@ resource "azurerm_key_vault" "roombyuserstest" {
   }
 
   tags = {
-    environment = "test"
+    environment = "prod"
   }
 }
 
