@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace Roomby.API.Users.Test
+namespace Roomby.API.Rooms.Tests
 {
     public class UnitTest1
     {
