@@ -92,7 +92,6 @@ stages:
 - stage: 'Deploy'
   dependsOn: Build
   displayName: 'Deploy the API'
-  condition: eq(1,2)
   jobs:
   - job: 'Provision_Test'
     displayName: 'Provision Test infrastructure'
@@ -135,6 +134,7 @@ stages:
   - deployment: Test
     displayName: 'Test'
     environment: test
+    condition: eq(1,2)
     variables:
     - group: Roomby Rooms API Secrets Test
     - name: ApplicationInsights.ConnectionString
