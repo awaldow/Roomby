@@ -68,9 +68,9 @@ stages:
         PathtoPublish: '$(build.artifactstagingdirectory)'
       condition: succeededOrFailed()
 
-- stage: 'Provision'
+- stage: 'Deploy'
   dependsOn: Build
-  displayName: 'Provision app infrastructure with terraform'
+  displayName: 'Deploy the API'
   jobs:
   - job: 'Provision_Test'
     displayName: 'Provision Test infrastructure'
@@ -107,11 +107,6 @@ stages:
           environmentServiceNameAzureRM: 'Visual Studio Enterprise'
           commandOptions: terraform.plan
         displayName: Terraform Apply
-
-- stage: 'Deploy'
-  dependsOn: Provision
-  displayName: 'Deploy the API'
-  jobs:
   - deployment: Test
     displayName: 'Test'
     environment: test

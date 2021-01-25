@@ -70,14 +70,14 @@ stages:
         PathtoPublish: '$(build.artifactstagingdirectory)'
       condition: succeededOrFailed()
 
-- stage: 'Provision'
+- stage: 'Deploy'
   dependsOn: Build
-  displayName: 'Provision app infrastructure with terraform'
+  displayName: 'Deploy the API'
   jobs:
   - job: 'Provision_Test'
     displayName: 'Provision Test infrastructure'
     variables:
-      - group: Roomby Users Terraform Test Backend Config
+      - group: Roomby Rooms Terraform Test Backend Config
     pool:
       vmImage: 'windows-2019'
     steps:
@@ -100,7 +100,7 @@ stages:
         inputs:
           command: plan
           environmentServiceNameAzureRM: 'Visual Studio Enterprise'
-          commandOptions: '-out=terraform.plan'
+          commandOptions: -out=terraform.plan
         displayName: Terraform Plan
 
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
@@ -109,11 +109,6 @@ stages:
           environmentServiceNameAzureRM: 'Visual Studio Enterprise'
           commandOptions: terraform.plan
         displayName: Terraform Apply
-
-- stage: 'Deploy'
-  dependsOn: Build
-  displayName: 'Deploy the API'
-  jobs:
   - deployment: Test
     displayName: 'Test'
     environment: test
