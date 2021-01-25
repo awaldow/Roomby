@@ -134,6 +134,7 @@ stages:
           commandOptions: terraform.plan
           workingDirectory: '$(Pipeline.Workspace)\terraformtest'
         displayName: Terraform Apply
+        name: terraformApply
 
       - powershell: |
           $terraformOutput = Get-Content "$(terraformApply.jsonOutputVariablesPath)" | ConvertFrom-Json
