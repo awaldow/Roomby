@@ -148,7 +148,7 @@ resource "azurerm_storage_account" "roombysqlstorage" {
   resource_group_name      = azurerm_resource_group.roombytest.name
   location                 = azurerm_resource_group.roombytest.location
   account_tier             = "Standard"
-  account_replication_type = "RA-GRS"
+  account_replication_type = "RAGRS"
 
   tags = {
     environment = "test"
@@ -174,7 +174,7 @@ resource "azurerm_mssql_database" "roombyusersdb" {
   server_id         = azurerm_sql_server.roombysqlserver.id
   max_size_gb   = 32
   sku_name = "GP_S_Gen5_2"
-  storage_account_type = "RA-GRS"
+  storage_account_type = "GRS"
   min_capacity = 1
   auto_pause_delay_in_minutes = 60
 
