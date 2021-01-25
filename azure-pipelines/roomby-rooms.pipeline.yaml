@@ -18,6 +18,10 @@ variables:
   value: 'terraform/test/rooms/'
 - name: terraformProdPath
   value: 'terraform/prod/rooms/'
+- name: testSubscription
+  value: 'Visual Studio Enterprise'
+- name: prodSubscription
+  value: 'Visual Studio Enterprise'
 
 stages:
 - stage: 'Build'
@@ -144,10 +148,10 @@ stages:
           - task: AzureRmWebAppDeployment@4
             displayName: 'Azure App Service Deploy: app-roomby-rooms-test'
             inputs:
-              azureSubscription: 'Roomby Test'
+              azureSubscription: '$(testSubscription)'
               appType: webApp 
-              WebAppName: app-roomby-rooms-test
-              ResourceGroupName: rg-roomby-test
+              WebAppName: $(terraformOutput.rooms_app_service_name)
+              ResourceGroupName: $(terraformOutput.resource_group)
               packageForLinux: '$(Pipeline.Workspace)\code\*.zip'
               
   - deployment: Prod
@@ -168,7 +172,7 @@ stages:
           - task: AzureRmWebAppDeployment@4
             displayName: 'Azure App Service Deploy: app-roomby-rooms-prod staging slot'
             inputs:
-              azureSubscription: 'Roomby Prod'
+              azureSubscription: '$(prodSubscription)'
               WebAppName: app-roomby-rooms
               appType: webApp 
               deployToSlotOrASE: true
@@ -178,7 +182,7 @@ stages:
           - task: AzureAppServiceManage@0
             displayName: 'Swap Slots: app-roomby-rooms-prod'
             inputs:
-              azureSubscription: 'Roomby Prod'
+              azureSubscription: '$(prodSubscription)'
               WebAppName: app-roomby-rooms
               action: 'Swap Slots'
               ResourceGroupName: rg-roomby

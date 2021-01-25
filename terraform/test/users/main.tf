@@ -246,6 +246,10 @@ resource "azurerm_key_vault_secret" "userssqldbconnection" {
   key_vault_id = azurerm_key_vault.roombyuserstest.id
 }
 
+output "resource_group" {
+  value = var.resource_group_name
+}
+
 output "instrumentation_key" {
   value = azurerm_application_insights.roombyappi.instrumentation_key
 }
