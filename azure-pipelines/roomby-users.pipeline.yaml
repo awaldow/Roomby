@@ -151,7 +151,7 @@ stages:
               appType: webApp 
               WebAppName: app-roomby-users-test
               ResourceGroupName: rg-roomby-test
-              packageForLinux: '$(Pipeline.Workspace)\drop\*.zip'
+              packageForLinux: '$(Pipeline.Workspace)\code\*.zip'
               
   - deployment: Prod
     displayName: 'Prod'
@@ -177,7 +177,7 @@ stages:
               deployToSlotOrASE: true
               ResourceGroupName: rg-roomby
               SlotName: app-roomby-users-staging
-              packageForLinux: '$(Pipeline.Workspace)\drop\*.zip'
+              packageForLinux: '$(Pipeline.Workspace)\code\*.zip'
           - task: AzureAppServiceManage@0
             displayName: 'Swap Slots: app-roomby-users-prod'
             inputs:
