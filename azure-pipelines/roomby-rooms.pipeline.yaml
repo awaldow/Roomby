@@ -117,7 +117,7 @@ stages:
           backendAzureRmStorageAccountName: $(backendStorageAccountName)
           backendAzureRmContainerName: $(backendContainerName)
           backendAzureRmKey: $(backendKeyFile)
-          workingDirectory: '$(Pipeline.Workspace)\terraformtest'
+          workingDirectory: '$(Pipeline.Workspace)/terraformtest'
           
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
         inputs:
@@ -151,6 +151,8 @@ stages:
       value: $(ApplicationInsights--ConnectionString)
     - name: webAppName
       value: $[dependencies.Provision_Test.outputs['terraformOutput.rooms_app_service_name']]
+    - name: resourceGroupName
+      value: $[dependencies.Provision_Test.outputs['terraformOutput.resource_group']]
     strategy:
       runOnce:
         deploy:
@@ -163,7 +165,7 @@ stages:
               azureSubscription: '$(testSubscription)'
               appType: webApp 
               WebAppName: $(webAppName)
-              ResourceGroupName: $[dependencies.Provision_Test.outputs['terraformOutput.resource_group']]
+              ResourceGroupName: $(resourceGroupName)
               packageForLinux: '$(Pipeline.Workspace)/code/*.zip'
               
   - deployment: Prod
