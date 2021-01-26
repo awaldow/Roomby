@@ -153,7 +153,9 @@ stages:
     - name: ApplicationInsights.ConnectionString
       value: $(ApplicationInsights--ConnectionString)
     - name: webAppName
-      value: $[dependencies.Provision_Test['terraformOutput.rooms_app_service_name']]
+      value: $[dependencies.Provision_Test.outputs['terraformOutput.rooms_app_service_name']]
+    - name: resourceGroupName
+      value: $[dependencies.Provision_Test.outputs['terraformOutput.resource_group']]
     strategy:
       runOnce:
         deploy:
@@ -166,8 +168,8 @@ stages:
               azureSubscription: '$(testSubscription)'
               appType: webApp 
               WebAppName: $(webAppName)
-              ResourceGroupName: $[dependencies.Provision_Test['terraformOutput.resource_group']]
-              packageForLinux: '$(Pipeline.Workspace)\code\*.zip'
+              ResourceGroupName: $(resourceGroupName)
+              packageForLinux: '$(Pipeline.Workspace)/code/*.zip'
               
   - deployment: Prod
     displayName: 'Prod'
@@ -193,7 +195,7 @@ stages:
               deployToSlotOrASE: true
               ResourceGroupName: rg-roomby
               SlotName: app-roomby-users-staging
-              packageForLinux: '$(Pipeline.Workspace)\code\*.zip'
+              packageForLinux: '$(Pipeline.Workspace)/code/*.zip'
           - task: AzureAppServiceManage@0
             displayName: 'Swap Slots: app-roomby-users-prod'
             inputs:
