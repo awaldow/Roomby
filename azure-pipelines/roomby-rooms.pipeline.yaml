@@ -124,7 +124,7 @@ stages:
           command: plan
           environmentServiceNameAzureRM: 'Visual Studio Enterprise'
           commandOptions: -out=terraform.plan -var "resource_group_location=$(resourceGroupLocation)" -var "sql_server_admin=$(sqlServerAdmin)" -var "sql_server_admin_pass=$(sqlServerAdminPass)"
-          workingDirectory: '$(Pipeline.Workspace)\terraformtest'
+          workingDirectory: '$(Pipeline.Workspace)/terraformtest'
         displayName: Terraform Plan
 
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
@@ -133,7 +133,7 @@ stages:
           command: apply
           environmentServiceNameAzureRM: 'Visual Studio Enterprise'
           commandOptions: terraform.plan
-          workingDirectory: '$(Pipeline.Workspace)\terraformtest'
+          workingDirectory: '$(Pipeline.Workspace)/terraformtest'
         displayName: Terraform Apply
 
       - powershell: |
@@ -164,7 +164,7 @@ stages:
               appType: webApp 
               WebAppName: $(webAppName)
               ResourceGroupName: $[dependencies.Provision_Test.outputs['terraformOutput.resource_group']]
-              packageForLinux: '$(Pipeline.Workspace)\code\*.zip'
+              packageForLinux: '$(Pipeline.Workspace)/code/*.zip'
               
   - deployment: Prod
     displayName: 'Prod'
