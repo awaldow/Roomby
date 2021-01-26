@@ -128,13 +128,13 @@ stages:
         displayName: Terraform Plan
 
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
+        name: terraformApply
         inputs:
           command: apply
           environmentServiceNameAzureRM: 'Visual Studio Enterprise'
           commandOptions: terraform.plan
           workingDirectory: '$(Pipeline.Workspace)\terraformtest'
         displayName: Terraform Apply
-        name: terraformApply
 
       - powershell: |
           $terraformOutput = Get-Content "$(terraformApply.jsonOutputVariablesPath)" | ConvertFrom-Json
@@ -156,7 +156,7 @@ stages:
         deploy:
           steps:
           - download: current
-            artifact: drop
+            artifact: code
           - task: AzureRmWebAppDeployment@4
             displayName: 'Azure App Service Deploy: app-roomby-rooms-test'
             inputs:
@@ -180,7 +180,7 @@ stages:
         deploy:
           steps:
           - download: current
-            artifact: drop
+            artifact: code
           - task: AzureRmWebAppDeployment@4
             displayName: 'Azure App Service Deploy: app-roomby-rooms-prod staging slot'
             inputs:

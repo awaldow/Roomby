@@ -147,23 +147,26 @@ stages:
     displayName: 'Test'
     environment: test
     condition: eq(1,2)
+    dependsOn: 'Provision_Test'
     variables:
     - group: Roomby Users API Secrets Test
     - name: ApplicationInsights.ConnectionString
       value: $(ApplicationInsights--ConnectionString)
+    - name: webAppName
+      value: $[dependencies.Provision_Test['terraformOutput.rooms_app_service_name']]
     strategy:
       runOnce:
         deploy:
           steps:
           - download: current
-            artifact: drop
+            artifact: code
           - task: AzureRmWebAppDeployment@4
             displayName: 'Azure App Service Deploy: app-roomby-users-test'
             inputs:
               azureSubscription: '$(testSubscription)'
               appType: webApp 
-              WebAppName: $(terraformOutput.users_app_service_name)
-              ResourceGroupName: $(terraformOutput.resource_group)
+              WebAppName: $(webAppName)
+              ResourceGroupName: $[dependencies.Provision_Test['terraformOutput.resource_group']]
               packageForLinux: '$(Pipeline.Workspace)\code\*.zip'
               
   - deployment: Prod
@@ -173,14 +176,14 @@ stages:
       - group: Roomby Users API Secrets Prod
       - name: ApplicationInsights.ConnectionString
         value: $(ApplicationInsights--ConnectionString)
-    dependsOn: Test
+    dependsOn: 'Provision_Prod'
     condition: eq(1,2)
     strategy:
       runOnce:
         deploy:
           steps:
           - download: current
-            artifact: drop
+            artifact: code
           - task: AzureRmWebAppDeployment@4
             displayName: 'Azure App Service Deploy: app-roomby-users-prod staging slot'
             inputs:
