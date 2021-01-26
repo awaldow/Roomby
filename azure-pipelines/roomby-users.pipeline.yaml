@@ -176,7 +176,7 @@ stages:
       - group: Roomby Users API Secrets Prod
       - name: ApplicationInsights.ConnectionString
         value: $(ApplicationInsights--ConnectionString)
-    dependsOn: 'Provision_Prod'
+    dependsOn: 'Test'
     condition: eq(1,2)
     strategy:
       runOnce:
