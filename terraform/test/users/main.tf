@@ -84,42 +84,6 @@ resource "azurerm_resource_group" "roombytest" {
   location = var.resource_group_location
 }
 
-resource "azurerm_app_service_plan" "roombyplan" {
-  name                = var.app_service_plan_name
-  location            = azurerm_resource_group.roombytest.location
-  resource_group_name = azurerm_resource_group.roombytest.name
-  kind                = "Linux"
-  reserved            = true
-
-  sku {
-    tier = "Basic"
-    size = "B1"
-  }
-
-  tags = {
-    environment = "test"
-  }
-}
-
-resource "azurerm_app_service" "roombyuserstest" {
-  name                = var.users_app_service_name_prefix
-  location            = azurerm_resource_group.roombytest.location
-  resource_group_name = azurerm_resource_group.roombytest.name
-  app_service_plan_id = azurerm_app_service_plan.roombyplan.id
-
-  site_config {
-    linux_fx_version = "DOTNET|5"
-  }
-
-  identity {
-    type = "SystemAssigned"
-  }
-
-  tags = {
-    environment = "test"
-  }
-}
-
 resource "azurerm_application_insights" "roombyappi" {
   name                = var.application_insights_name
   location            = azurerm_resource_group.roombytest.location
@@ -131,12 +95,18 @@ resource "azurerm_application_insights" "roombyappi" {
   }
 }
 
-resource "azurerm_storage_account" "roombystorage" {
-  name = var.storage_account_name
-  resource_group_name      = azurerm_resource_group.roombytest.name
-  location                 = azurerm_resource_group.roombytest.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
+
+resource "azurerm_app_service_plan" "roombyplan" {
+  name                = var.app_service_plan_name
+  location            = azurerm_resource_group.roombytest.location
+  resource_group_name = azurerm_resource_group.roombytest.name
+  kind                = "Linux"
+  reserved            = true
+
+  sku {
+    tier = "Basic"
+    size = "B1"
+  }
 
   tags = {
     environment = "test"
@@ -189,6 +159,52 @@ resource "azurerm_mssql_database_extended_auditing_policy" "roombyusersdbauditin
   storage_account_access_key_is_secondary = false
   retention_in_days                       = 6
   database_id                             = azurerm_mssql_database.roombyusersdb.id
+}
+
+resource "azurerm_app_service" "roombyuserstest" {
+  name                = var.users_app_service_name_prefix
+  location            = azurerm_resource_group.roombytest.location
+  resource_group_name = azurerm_resource_group.roombytest.name
+  app_service_plan_id = azurerm_app_service_plan.roombyplan.id
+  https_only = true
+
+  site_config {
+    linux_fx_version = "DOTNET|5"
+  }
+
+  app_settings = {
+    "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.roombyappi.instrumentation_key
+    "ASPNETCORE_ENVIRONMENT"             = "Staging"
+    "ASPNETCORE_HTTPS_PORT"              = 443
+    "WEBSITE_HTTPLOGGING_RETENTION_DAYS" = 1
+    "WEBSITE_RUN_FROM_PACKAGE"           = 1
+  }
+
+  connection_string {
+    name = "RoombyRoomSql"
+    type = "SQLAzure"
+    value = "Server=tcp:${azurerm_sql_server.roombysqlserver.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_mssql_database.roombyusersdb.name};Persist Security Info=False;User ID=${azurerm_sql_server.roombysqlserver.administrator_login};Password=${azurerm_sql_server.roombysqlserver.administrator_login_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  }
+
+  identity {
+    type = "SystemAssigned"
+  }
+
+  tags = {
+    environment = "test"
+  }
+}
+
+resource "azurerm_storage_account" "roombystorage" {
+  name = var.storage_account_name
+  resource_group_name      = azurerm_resource_group.roombytest.name
+  location                 = azurerm_resource_group.roombytest.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+
+  tags = {
+    environment = "test"
+  }
 }
 
 resource "azurerm_key_vault" "roombyuserstest" {
