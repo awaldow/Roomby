@@ -51,11 +51,6 @@ variable "application_insights_name" {
   description = "The name of the application insights service for Roomby"
 }
 
-variable "storage_account_name" {
-  default = "stroombyuserstest"
-  description = "The name of the storage account for Roomby"
-}
-
 variable "sqlstorage_account_name" {
   default = "stroombyuserssqltest"
   description = "The name of the storage account for the Azure SQL Server"
@@ -189,18 +184,6 @@ resource "azurerm_app_service" "roombyuserstest" {
   identity {
     type = "SystemAssigned"
   }
-
-  tags = {
-    environment = "test"
-  }
-}
-
-resource "azurerm_storage_account" "roombystorage" {
-  name = var.storage_account_name
-  resource_group_name      = azurerm_resource_group.roombytest.name
-  location                 = azurerm_resource_group.roombytest.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
 
   tags = {
     environment = "test"

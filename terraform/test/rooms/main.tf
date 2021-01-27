@@ -51,11 +51,6 @@ variable "application_insights_name" {
   description = "The name of the application insights service for Roomby"
 }
 
-variable "storage_account_name" {
-  default = "stroombyroomstest"
-  description = "The name of the storage account for Roomby"
-}
-
 variable "sqlstorage_account_name" {
   default = "stroombyroomssqltest"
   description = "The name of the storage account for the Azure SQL Server"
@@ -69,13 +64,6 @@ variable "sql_server_name" {
 variable "rooms_sql_db_name" {
   default = "sql-roomby-rooms-test"
   description = "The name of the Azure SQL DB instance for the Rooms API"
-}
-
-variable "tasks_table_name" {
-  default = "roombytasks"
-}
-variable "purchases_table_name" {
-  default = "roombypurchases"
 }
 
 variable "sql_server_admin" {
@@ -198,28 +186,6 @@ resource "azurerm_app_service" "roombyroomstest" {
   tags = {
     environment = "test"
   }
-}
-
-resource "azurerm_storage_account" "roombystorage" {
-  name = var.storage_account_name
-  resource_group_name      = azurerm_resource_group.roombytest.name
-  location                 = azurerm_resource_group.roombytest.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-
-  tags = {
-    environment = "test"
-  }
-}
-
-resource "azurerm_storage_table" "roombytaskstable" {
-  name = var.tasks_table_name
-  storage_account_name = azurerm_storage_account.roombystorage.name
-}
-
-resource "azurerm_storage_table" "roombypurchasestable" {
-  name = var.purchases_table_name
-  storage_account_name = azurerm_storage_account.roombystorage.name
 }
 
 resource "azurerm_key_vault" "roombyroomstest" {
