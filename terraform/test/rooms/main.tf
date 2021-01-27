@@ -180,8 +180,8 @@ resource "azurerm_app_service" "roombyroomstest" {
 
   app_settings = {
     "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.roombyappi.instrumentation_key
-    "WEBSITE_RUN_FROM_PACKAGE" = 1
     "ASPNETCORE_ENVIRONMENT" = "Staging"
+    "ASPNETCORE_HTTPS_PORT" = 443
   }
 
   connection_string {
