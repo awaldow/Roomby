@@ -175,6 +175,7 @@ resource "azurerm_app_service" "roombyroomstest" {
 
   site_config {
     linux_fx_version = "DOTNETCORE|5.0"
+    app_command_line = "dotnet Roomby.API.Rooms.dll"
   }
 
   app_settings = {
