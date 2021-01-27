@@ -150,8 +150,6 @@ stages:
     dependsOn: 'Provision_Test'
     variables:
     - group: Roomby Users API Secrets Test
-    - name: ApplicationInsights.ConnectionString
-      value: $(ApplicationInsights--ConnectionString)
     - name: webAppName
       value: $[dependencies.Provision_Test.outputs['terraformOutput.rooms_app_service_name']]
     - name: resourceGroupName
