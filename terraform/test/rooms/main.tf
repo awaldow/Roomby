@@ -72,10 +72,10 @@ variable "rooms_sql_db_name" {
 }
 
 variable "tasks_table_name" {
-  default = "roomby.tasks.table"
+  default = "roombytasks"
 }
 variable "purchases_table_name" {
-  default = "roomby.purchases.table"
+  default = "roombypurchases"
 }
 
 variable "sql_server_admin" {
@@ -178,7 +178,7 @@ resource "azurerm_app_service" "roombyroomstest" {
   }
 
   app_settings {
-    "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.roombyappi.instrumentation_key
+    APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.roombyappi.instrumentation_key
   }
 
   connection_string {
