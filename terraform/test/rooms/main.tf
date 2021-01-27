@@ -71,6 +71,13 @@ variable "rooms_sql_db_name" {
   description = "The name of the Azure SQL DB instance for the Rooms API"
 }
 
+variable "tasks_table_name" {
+  default = "roomby.tasks.table"
+}
+variable "purchases_table_name" {
+  default = "roomby.purchases.table"
+}
+
 variable "sql_server_admin" {
   description = "The name of the SQL server admin account"
 }
@@ -199,6 +206,16 @@ resource "azurerm_storage_account" "roombystorage" {
   tags = {
     environment = "test"
   }
+}
+
+resource "azurerm_storage_table" "roombytaskstable" {
+  name = var.tasks_table_name
+  storage_account_name = azurerm_storage_account.roombystorage.name
+}
+
+resource "azurerm_storage_table" "roombypurchasestable" {
+  name = var.purchases_table_name
+  storage_account_name = azurerm_storage_account.roombystorage.name
 }
 
 resource "azurerm_key_vault" "roombyroomstest" {
