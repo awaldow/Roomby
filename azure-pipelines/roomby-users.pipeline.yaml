@@ -98,7 +98,7 @@ stages:
   - job: 'Provision_Test'
     displayName: 'Provision Test infrastructure'
     variables:
-      - group: Roomby Rooms Terraform Test Backend Config
+      - group: Roomby Users Terraform Test Backend Config
     pool:
       vmImage: 'windows-2019'
     steps:
@@ -178,7 +178,7 @@ stages:
       - group: Roomby Users API Secrets Prod
       - name: ApplicationInsights.ConnectionString
         value: $(ApplicationInsights--ConnectionString)
-    dependsOn: 'Provision_Prod'
+    dependsOn: 'Test'
     condition: eq(1,2)
     strategy:
       runOnce:
