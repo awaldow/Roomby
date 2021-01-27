@@ -106,8 +106,6 @@ resource "azurerm_app_service_plan" "roombyplan" {
   name                = var.app_service_plan_name
   location            = azurerm_resource_group.roombytest.location
   resource_group_name = azurerm_resource_group.roombytest.name
-  kind                = "Linux"
-  reserved            = true
 
   sku {
     tier = "Basic"
@@ -175,7 +173,7 @@ resource "azurerm_app_service" "roombyroomstest" {
   https_only = true
 
   site_config {
-    linux_fx_version = "DOTNETCORE|5.0"
+    dotnet_framework_version = "v4.0"
   }
 
   app_settings = {
