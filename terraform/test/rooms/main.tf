@@ -181,6 +181,7 @@ resource "azurerm_app_service" "roombyroomstest" {
   app_settings = {
     "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.roombyappi.instrumentation_key
     "WEBSITE_RUN_FROM_PACKAGE" = 1
+    "ASPNETCORE_ENVIRONMENT" = "Staging"
   }
 
   connection_string {
