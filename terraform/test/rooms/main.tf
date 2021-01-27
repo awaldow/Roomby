@@ -177,8 +177,8 @@ resource "azurerm_app_service" "roombyroomstest" {
     linux_fx_version = "DOTNET|5"
   }
 
-  app_settings {
-    APPINSIGHTS_INSTRUMENTATIONKEY = azurerm_application_insights.roombyappi.instrumentation_key
+  app_settings = {
+    "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.roombyappi.instrumentation_key
   }
 
   connection_string {
