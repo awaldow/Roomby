@@ -103,7 +103,7 @@ stages:
       vmImage: 'windows-2019'
     steps:
       - download: current
-        artifact: drop
+        artifact: terraformtest
 
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
         inputs:
