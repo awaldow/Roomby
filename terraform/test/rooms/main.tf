@@ -174,7 +174,7 @@ resource "azurerm_app_service" "roombyroomstest" {
   app_service_plan_id = azurerm_app_service_plan.roombyplan.id
 
   site_config {
-    linux_fx_version = "DOTNET|5"
+    linux_fx_version = "DOTNETCORE|5.0"
   }
 
   app_settings = {
