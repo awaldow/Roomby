@@ -172,6 +172,7 @@ resource "azurerm_app_service" "roombyroomstest" {
   location            = azurerm_resource_group.roombytest.location
   resource_group_name = azurerm_resource_group.roombytest.name
   app_service_plan_id = azurerm_app_service_plan.roombyplan.id
+  https_only = true
 
   site_config {
     linux_fx_version = "DOTNETCORE|5.0"
@@ -180,6 +181,7 @@ resource "azurerm_app_service" "roombyroomstest" {
 
   app_settings = {
     "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.roombyappi.instrumentation_key
+    "WEBSITE_RUN_FROM_PACKAGE" = 1
   }
 
   connection_string {
