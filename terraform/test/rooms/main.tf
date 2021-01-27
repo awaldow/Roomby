@@ -173,7 +173,7 @@ resource "azurerm_app_service" "roombyroomstest" {
   https_only = true
 
   site_config {
-    dotnet_framework_version = "v4.0"
+    dotnet_framework_version = "v5.0"
     windows_fx_version = "DOTNET|5.0"
   }
 
@@ -181,6 +181,7 @@ resource "azurerm_app_service" "roombyroomstest" {
     "APPINSIGHTS_INSTRUMENTATIONKEY" = azurerm_application_insights.roombyappi.instrumentation_key
     "ASPNETCORE_ENVIRONMENT" = "Staging"
     "ASPNETCORE_HTTPS_PORT" = 443
+    "WEBSITE_HTTPLOGGING_RETENTION_DAYS" = 1
   }
 
   connection_string {
