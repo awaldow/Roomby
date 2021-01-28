@@ -94,6 +94,7 @@ stages:
 - stage: 'Deploy'
   dependsOn: Build
   displayName: 'Deploy the API'
+  condition: eq(1,2)
   jobs:
   - job: 'Provision_Test'
     displayName: 'Provision Test infrastructure'
