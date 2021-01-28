@@ -133,7 +133,7 @@ namespace Rooms.API.Rooms.Extensions
             return services;
         }
 
-        public static IServiceCollection AddItemsDbContext(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment env)
+        public static IServiceCollection AddRoomsDbContext(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment env)
         {
             services.AddDbContext<RoomsContext>(options =>
             {
@@ -144,7 +144,7 @@ namespace Rooms.API.Rooms.Extensions
                 });
 
                     // TODO: Limit this to dev and staging
-                    if (env.IsDevelopment())
+                if (env.IsDevelopment())
                 {
                     options.EnableSensitiveDataLogging();
                 }
