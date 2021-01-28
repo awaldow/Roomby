@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomby.API.Users.Data", "Ro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomby.API.Rooms.Data", "Roomby.API.Rooms.Data\Roomby.API.Rooms.Data.csproj", "{E37645D4-B39D-4C78-91E8-583493594BD6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomby.API.Models", "Roomby.API.Models\Roomby.API.Models.csproj", "{38BE0434-E8F0-4553-91BD-87B2A605D2B9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -100,5 +102,17 @@ Global
 		{E37645D4-B39D-4C78-91E8-583493594BD6}.Release|x64.Build.0 = Release|Any CPU
 		{E37645D4-B39D-4C78-91E8-583493594BD6}.Release|x86.ActiveCfg = Release|Any CPU
 		{E37645D4-B39D-4C78-91E8-583493594BD6}.Release|x86.Build.0 = Release|Any CPU
+		{38BE0434-E8F0-4553-91BD-87B2A605D2B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38BE0434-E8F0-4553-91BD-87B2A605D2B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38BE0434-E8F0-4553-91BD-87B2A605D2B9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{38BE0434-E8F0-4553-91BD-87B2A605D2B9}.Debug|x64.Build.0 = Debug|Any CPU
+		{38BE0434-E8F0-4553-91BD-87B2A605D2B9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{38BE0434-E8F0-4553-91BD-87B2A605D2B9}.Debug|x86.Build.0 = Debug|Any CPU
+		{38BE0434-E8F0-4553-91BD-87B2A605D2B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38BE0434-E8F0-4553-91BD-87B2A605D2B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38BE0434-E8F0-4553-91BD-87B2A605D2B9}.Release|x64.ActiveCfg = Release|Any CPU
+		{38BE0434-E8F0-4553-91BD-87B2A605D2B9}.Release|x64.Build.0 = Release|Any CPU
+		{38BE0434-E8F0-4553-91BD-87B2A605D2B9}.Release|x86.ActiveCfg = Release|Any CPU
+		{38BE0434-E8F0-4553-91BD-87B2A605D2B9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
