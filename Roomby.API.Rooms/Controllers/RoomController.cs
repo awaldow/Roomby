@@ -33,7 +33,9 @@ namespace Roomby.API.Rooms.Controllers
 
 
         #region V1
-        /// <summary>GetRoomsForHouseholdAsync(householdId)</summary>
+        /// <summary>
+        /// GetRoomsForHouseholdAsync(Guid householdId)
+        /// </summary>
         /// <remarks>
         /// Returns a list of Rooms (sorted by name) for a given Household ID
         /// </remarks>
@@ -58,7 +60,7 @@ namespace Roomby.API.Rooms.Controllers
         }
 
         /// <summary>
-        /// GetRoomAsync(roomId)
+        /// GetRoomAsync(Guid roomId)
         /// </summary>
         /// <remarks>
         /// Returns the Room object for <paramref name="roomId"/>
@@ -92,7 +94,7 @@ namespace Roomby.API.Rooms.Controllers
         }
 
         /// <summary>
-        /// CreateRoomAsync(roomToCreate)
+        /// CreateRoomAsync(Room roomToCreate)
         /// </summary>
         /// <remarks>
         /// Creates the provided <paramref name="roomToCreate"/>
@@ -114,6 +116,16 @@ namespace Roomby.API.Rooms.Controllers
             return CreatedAtAction(nameof(this.GetRoomAsync), new { id = created.Id }, created);
         }
 
+        /// <summary>
+        /// UpdateRoomAsync(Guid roomId, [FromBody] Room roomToUpdate)
+        /// </summary>
+        /// <remarks>
+        /// Updates the Room <paramref name="roomId"/> with the values from <paramref name="roomToUpdate"/> if it exists; if <paramref name="roomId"/>
+        /// is omitted, a new Room will be created instead.
+        /// </remarks>
+        /// <param name="roomId">Guid ID for the Room to update</param>
+        /// <param name="roomToUpdate">Room object with the request changes filled in</param>
+        /// <returns>The updated room object, or a newly created one if <paramref name="roomId"/> is omitted</returns>
         [HttpPut("{roomId}", Name = "UpdateRoom")]
         [MapToApiVersion("1")]
         [Consumes("application/json")]
@@ -152,6 +164,14 @@ namespace Roomby.API.Rooms.Controllers
             }
         }
 
+        /// <summary>
+        /// DeleteRoomAsync(Guid roomId)
+        /// </summary>
+        /// <remarks>
+        /// Deletes the Room with the given <paramref name="roomId"/>
+        /// </remarks>
+        /// <param name="roomId">Room ID for the Room to delete</param>
+        /// <returns>NoContent if successfully deleted; if ID can't be found or is not provided, BadRequest is returned.</returns>
         [HttpDelete("{roomId}", Name = "DeleteRoom")]
         [MapToApiVersion("1")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -159,14 +179,14 @@ namespace Roomby.API.Rooms.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> DeleteRoomAsync(Guid roomId)
         {
-            (bool roomWasDeleted, Room deletedRoom) = await _mediator.Send(new DeleteRoom { RoomId = roomId });
+            (bool roomWasDeleted, string message, Room deletedRoom) = await _mediator.Send(new DeleteRoom { RoomId = roomId });
             if (roomWasDeleted)
             {
                 return NoContent();
             }
             else
             {
-                return BadRequest($"Room with ID {roomId} was not found to delete");
+                return BadRequest(message);
             }
         }
     }

@@ -9,7 +9,7 @@ using Roomby.API.Rooms.Data;
 
 namespace Roomby.API.Rooms.Mediators
 {
-    public class DeleteRoom : IRequest<(bool, Room)>
+    public class DeleteRoom : IRequest<(bool, string, Room)>
     {
         public Guid RoomId { get; set; }
     }
@@ -22,7 +22,7 @@ namespace Roomby.API.Rooms.Mediators
         }
     }
 
-    public class DeleteRoomHandler : IRequestHandler<DeleteRoom, (bool, Room)>
+    public class DeleteRoomHandler : IRequestHandler<DeleteRoom, (bool, string,  Room)>
     {
         private readonly RoomsContext _ctx;
 
@@ -31,18 +31,18 @@ namespace Roomby.API.Rooms.Mediators
             _ctx = ctx;
         }
 
-        public async Task<(bool, Room)> Handle(DeleteRoom request, CancellationToken cancellationToken)
+        public async Task<(bool, string, Room)> Handle(DeleteRoom request, CancellationToken cancellationToken)
         {
             var room = await _ctx.Rooms.SingleOrDefaultAsync(r => r.Id == request.RoomId);
             if (room == null)
             {
-                return (false, null);
+                return (false, $"Room with ID {request.RoomId} was not found to delete", null);
             }
             else
             {
                 var deletedRoom = _ctx.Rooms.Remove(room);
                 await _ctx.SaveChangesAsync();
-                return (true, deletedRoom.Entity);
+                return (true, "Room deleted", deletedRoom.Entity);
             }
         }
     }

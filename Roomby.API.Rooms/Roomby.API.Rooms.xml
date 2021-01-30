@@ -32,5 +32,17 @@
             <param name="roomToCreate">A Room object. See <see cref="T:Roomby.API.Rooms.Mediators.CreateRoomValidator"/> for validation information</param>
             <returns>The created Room object</returns>
         </member>
+        <member name="M:Roomby.API.Rooms.Controllers.RoomController.UpdateRoomAsync(System.Guid,Roomby.API.Models.Room)">
+            <summary>
+            UpdateRoomAsync(roomId, roomToUpdate)
+            </summary>
+            <remarks>
+            Updates the Room <paramref name="roomId"/> with the values from <paramref name="roomToUpdate"/> if it exists; if <paramref name="roomId"/>
+            is omitted, a new Room will be created instead.
+            </remarks>
+            <param name="roomId">Guid ID for the Room to update</param>
+            <param name="roomToUpdate">Room object with the request changes filled in</param>
+            <returns>The updated room object, or a newly created one if <paramref name="roomId"/> is omitted</returns>
+        </member>
     </members>
 </doc>
