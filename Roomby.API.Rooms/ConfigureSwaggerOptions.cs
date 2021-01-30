@@ -70,9 +70,9 @@ namespace Roomby.API.Rooms
         {
             var info = new OpenApiInfo()
             {
-                Title = "SAK Inventory API",
+                Title = "Roomby Rooms API",
                 Version = description.ApiVersion.ToString(),
-                Description = "API for managing SAK Product Inventory - Test",
+                Description = "API for Roomby Rooms - Test",
                 Contact = new OpenApiContact()
                 {
                     Email = "a.wal.bear@gmail.com",
