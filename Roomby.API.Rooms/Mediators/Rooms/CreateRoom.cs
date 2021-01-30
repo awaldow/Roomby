@@ -38,6 +38,7 @@ namespace Roomby.API.Rooms.Mediators
         public async Task<Room> Handle(CreateRoom request, CancellationToken cancellationToken)
         {
             var roomCreated = await _ctx.Rooms.AddAsync(request.RoomToCreate);
+            await _ctx.SaveChangesAsync();
             return roomCreated.Entity;
         }
     }
