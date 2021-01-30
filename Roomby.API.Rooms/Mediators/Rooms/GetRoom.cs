@@ -31,10 +31,6 @@ namespace Roomby.API.Rooms.Mediators
             _ctx = ctx;
         }
 
-        public async Task<Room> Handle(GetRoom request, CancellationToken cancellationToken)
-        {
-            var room = await _ctx.Rooms.SingleOrDefaultAsync(r => r.Id == request.RoomId);
-            return room;
-        }
+        public async Task<Room> Handle(GetRoom request, CancellationToken cancellationToken) => await _ctx.Rooms.SingleOrDefaultAsync(r => r.Id == request.RoomId);
     }
 }

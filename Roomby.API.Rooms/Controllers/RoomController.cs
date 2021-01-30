@@ -1,4 +1,3 @@
-using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -31,7 +30,6 @@ namespace Roomby.API.Rooms.Controllers
             _mediator = mediator;
             _logger = logger;
         }
-
 
         #region V1
         /// <summary>

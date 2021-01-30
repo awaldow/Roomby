@@ -4,5 +4,25 @@
         <name>Roomby.API.Users</name>
     </assembly>
     <members>
+        <member name="M:Roomby.API.Users.Controllers.HouseholdsController.GetHouseholdAsync(System.Guid)">
+            <summary>
+            GetHouseholdAsync(Guid householdId)
+            </summary>
+            <remarks>
+            Returns the Household object for <paramref name="householdId"/>
+            </remarks>
+            <param name="householdId">Household ID for the Household to get</param>
+            <returns>Household object with id <paramref name="householdId"/></returns>
+        </member>
+        <member name="M:Roomby.API.Users.Controllers.UsersController.GetUserAsync(System.Guid)">
+            <summary>
+            GetUserAsync(Guid userId)
+            </summary>
+            <remarks>
+            Returns the User object for <paramref name="userId"/>
+            </remarks>
+            <param name="userId">User ID for the User to get</param>
+            <returns>User object with id <paramref name="userId"/></returns>
+        </member>
     </members>
 </doc>
