@@ -1,11 +1,11 @@
 name: Roomby.API.Users-$(Date:yyyyMMdd)$(Rev:.r)
-# trigger:
-#   branches:
-#     include:
-#     - master
-#   paths:
-#     include:
-#     - Roomby.API.Users
+trigger:
+  branches:
+    include:
+    - master
+  paths:
+    include:
+    - Roomby.API.Users
 
 variables:
 - name: buildConfiguration

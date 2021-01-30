@@ -1,0 +1,13 @@
+name: roomby.apis
+services:
+- name: roomsapi
+  dockerFile: Roomby.API.Rooms/Dockerfile
+  bindings:
+  - protocol: https
+    port: 5001
+  
+- name: usersapi
+  dockerFile: Roomby.API.Users/Dockerfile
+  bindings:
+  - protocol: https
+    port: 5002
