@@ -11,3 +11,25 @@ services:
   bindings:
   - protocol: https
     port: 5002
+
+- name: mssql-rooms
+  image: microsoft/mssql-server-linux
+  env:
+  - name: "MSSQL_SA_PASSWORD"
+    value: "P@ssw0rd"
+  - name: ACCEPT_EULA
+    value: "Y"
+  bindings:
+  - port: 1433
+    connectionString: "Server=${host},${port};Database=Roomby.API.Rooms;User Id=sa;Password=${env:MSSQL_SA_PASSWORD};"
+
+- name: mssql-users
+  image: microsoft/mssql-server-linux
+  env:
+  - name: "MSSQL_SA_PASSWORD"
+    value: "P@ssw0rd"
+  - name: ACCEPT_EULA
+    value: "Y"
+  bindings:
+  - port: 1433
+    connectionString: "Server=${host},${port};Database=Roomby.API.Users;User Id=sa;Password=${env:MSSQL_SA_PASSWORD};"
