@@ -31,7 +31,10 @@ namespace Roomby.API.Rooms.Controllers
             _logger = logger;
         }
 
+
+        #region V1
         [HttpGet("{householdId}", Name = "GetRoomsForHouseholdAsync")]
+        [ApiVersion("1")]
         [ProducesResponseType(typeof(List<Room>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<List<Room>>> GetRoomsForHouseholdAsync(Guid householdId)
@@ -49,6 +52,7 @@ namespace Roomby.API.Rooms.Controllers
         }
 
         [HttpGet("{roomId}", Name = "GetRoom")]
+        [ApiVersion("1")]
         [ProducesResponseType(typeof(Room), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -74,6 +78,7 @@ namespace Roomby.API.Rooms.Controllers
         }
 
         [HttpPost(Name = "CreateRoom")]
+        [ApiVersion("1")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(Room), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -86,6 +91,7 @@ namespace Roomby.API.Rooms.Controllers
         }
 
         [HttpPut("{roomId}", Name = "UpdateRoom")]
+        [ApiVersion("1")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(Room), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(Room), StatusCodes.Status200OK)]
@@ -122,9 +128,13 @@ namespace Roomby.API.Rooms.Controllers
         }
 
         [HttpDelete("{roomId}", Name = "DeleteRoom")]
+        [ApiVersion("1")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> DeleteRoom(Guid roomId)
         {
-            (bool roomWasDeleted, Room deletedRoom)  = await _mediator.Send(new DeleteRoom { RoomId = roomId });
+            (bool roomWasDeleted, Room deletedRoom) = await _mediator.Send(new DeleteRoom { RoomId = roomId });
             if (roomWasDeleted)
             {
                 return NoContent();
@@ -135,4 +145,5 @@ namespace Roomby.API.Rooms.Controllers
             }
         }
     }
+    #endregion
 }
