@@ -19,6 +19,7 @@ namespace Roomby.API.Rooms.Controllers
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public class RoomController : ControllerBase
     {
         private readonly IMediator _mediator;
@@ -44,7 +45,6 @@ namespace Roomby.API.Rooms.Controllers
         [HttpGet("{householdId}", Name = "GetRoomsForHouseholdAsync")]
         [MapToApiVersion("1")]
         [ProducesResponseType(typeof(List<Room>), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<List<Room>>> GetRoomsForHouseholdAsync(Guid householdId)
         {
             try
@@ -67,11 +67,10 @@ namespace Roomby.API.Rooms.Controllers
         /// </remarks>
         /// <param name="roomId">Room ID for the Room to get</param>
         /// <returns>Room object with id <paramref name="roomId"/></returns>
-        [HttpGet("{roomId}", Name = "GetRoom")]
+        [HttpGet("{roomId}", Name = "GetRoomAsync")]
         [MapToApiVersion("1")]
         [ProducesResponseType(typeof(Room), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Room>> GetRoomAsync(Guid roomId)
         {
             try
@@ -106,7 +105,6 @@ namespace Roomby.API.Rooms.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(Room), StatusCodes.Status201Created)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         
         public async Task<ActionResult<Room>> CreateRoomAsync(Room roomToCreate)
         {
@@ -132,7 +130,6 @@ namespace Roomby.API.Rooms.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(Room), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(Room), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Room>> UpdateRoomAsync(Guid roomId, [FromBody] Room roomToUpdate)
         {
             try
@@ -176,7 +173,6 @@ namespace Roomby.API.Rooms.Controllers
         [MapToApiVersion("1")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> DeleteRoomAsync(Guid roomId)
         {
             (bool roomWasDeleted, string message, Room deletedRoom) = await _mediator.Send(new DeleteRoom { RoomId = roomId });
