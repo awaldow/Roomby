@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Roomby.API.Rooms</name>
+    </assembly>
+    <members>
+        <member name="M:Roomby.API.Rooms.Controllers.RoomController.GetRoomsForHouseholdAsync(System.Guid)">
+            <summary>GetRoomsForHouseholdAsync(householdId)</summary>
+            <remarks>
+            Returns a list of Rooms (sorted by name) for a given Household ID
+            </remarks>
+            <param name="householdId">The Household ID to return a list of Rooms for</param>
+            <returns>A List of Room objects for the given Household ID</returns>
+        </member>
+        <member name="M:Roomby.API.Rooms.Controllers.RoomController.GetRoomAsync(System.Guid)">
+            <summary>
+            GetRoomAsync(roomId)
+            </summary>
+            <remarks>
+            Returns the Room object for <paramref name="roomId"/>
+            </remarks>
+            <param name="roomId">Room ID for the Room to get</param>
+            <returns>Room object with id <paramref name="roomId"/></returns>
+        </member>
+        <member name="M:Roomby.API.Rooms.Controllers.RoomController.CreateRoomAsync(Roomby.API.Models.Room)">
+            <summary>
+            CreateRoomAsync(roomToCreate)
+            </summary>
+            <remarks>
+            Creates the provided <paramref name="roomToCreate"/>
+            </remarks>
+            <param name="roomToCreate">A Room object. See <see cref="T:Roomby.API.Rooms.Mediators.CreateRoomValidator"/> for validation information</param>
+            <returns>The created Room object</returns>
+        </member>
+    </members>
+</doc>
