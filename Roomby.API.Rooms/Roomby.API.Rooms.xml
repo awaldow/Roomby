@@ -5,7 +5,9 @@
     </assembly>
     <members>
         <member name="M:Roomby.API.Rooms.Controllers.RoomController.GetRoomsForHouseholdAsync(System.Guid)">
-            <summary>GetRoomsForHouseholdAsync(householdId)</summary>
+            <summary>
+            GetRoomsForHouseholdAsync(Guid householdId)
+            </summary>
             <remarks>
             Returns a list of Rooms (sorted by name) for a given Household ID
             </remarks>
@@ -14,7 +16,7 @@
         </member>
         <member name="M:Roomby.API.Rooms.Controllers.RoomController.GetRoomAsync(System.Guid)">
             <summary>
-            GetRoomAsync(roomId)
+            GetRoomAsync(Guid roomId)
             </summary>
             <remarks>
             Returns the Room object for <paramref name="roomId"/>
@@ -24,7 +26,7 @@
         </member>
         <member name="M:Roomby.API.Rooms.Controllers.RoomController.CreateRoomAsync(Roomby.API.Models.Room)">
             <summary>
-            CreateRoomAsync(roomToCreate)
+            CreateRoomAsync(Room roomToCreate)
             </summary>
             <remarks>
             Creates the provided <paramref name="roomToCreate"/>
@@ -34,7 +36,7 @@
         </member>
         <member name="M:Roomby.API.Rooms.Controllers.RoomController.UpdateRoomAsync(System.Guid,Roomby.API.Models.Room)">
             <summary>
-            UpdateRoomAsync(roomId, roomToUpdate)
+            UpdateRoomAsync(Guid roomId, [FromBody] Room roomToUpdate)
             </summary>
             <remarks>
             Updates the Room <paramref name="roomId"/> with the values from <paramref name="roomToUpdate"/> if it exists; if <paramref name="roomId"/>
@@ -43,6 +45,16 @@
             <param name="roomId">Guid ID for the Room to update</param>
             <param name="roomToUpdate">Room object with the request changes filled in</param>
             <returns>The updated room object, or a newly created one if <paramref name="roomId"/> is omitted</returns>
+        </member>
+        <member name="M:Roomby.API.Rooms.Controllers.RoomController.DeleteRoomAsync(System.Guid)">
+            <summary>
+            DeleteRoomAsync(Guid roomId)
+            </summary>
+            <remarks>
+            Deletes the Room with the given <paramref name="roomId"/>
+            </remarks>
+            <param name="roomId">Room ID for the Room to delete</param>
+            <returns>NoContent if successfully deleted; if ID can't be found or is not provided, BadRequest is returned.</returns>
         </member>
     </members>
 </doc>

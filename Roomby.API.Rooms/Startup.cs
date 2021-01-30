@@ -67,7 +67,8 @@ namespace Roomby.API.Rooms
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseSwaggerandSwaggerUI(Configuration, env, provider);
+            //app.UseSwaggerandSwaggerUI(Configuration, env, provider);
+            app.UseSwaggerandRedoc(Configuration, env, provider);
 
             app.UseEndpoints(endpoints =>
             {
