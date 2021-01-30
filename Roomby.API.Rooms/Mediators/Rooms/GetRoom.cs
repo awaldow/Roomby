@@ -3,7 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Roomby.API.Models;
+using Roomby.API.Rooms.Data;
 
 namespace Roomby.API.Rooms.Mediators
 {
@@ -22,20 +24,17 @@ namespace Roomby.API.Rooms.Mediators
 
     public class GetRoomHandler : IRequestHandler<GetRoom, Room>
     {
-        // TODO: Need to get blob storage sdk client (or whatever doc db thing) here to call
-        public GetRoomHandler()
-        {
+        private readonly RoomsContext _ctx;
 
+        public GetRoomHandler(RoomsContext ctx)
+        {
+            _ctx = ctx;
         }
 
-        public Task<Room> Handle(GetRoom request, CancellationToken cancellationToken)
+        public async Task<Room> Handle(GetRoom request, CancellationToken cancellationToken)
         {
-            return System.Threading.Tasks.Task.FromResult(new Room
-            {
-                Id = Guid.NewGuid(),
-                Household = Guid.NewGuid(),
-                Name = "Living Room"
-            });
+            var room = await _ctx.Rooms.SingleOrDefaultAsync(r => r.Id == request.RoomId);
+            return room;
         }
     }
 }

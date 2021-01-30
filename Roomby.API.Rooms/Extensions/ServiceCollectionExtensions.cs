@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Roomby.API.Rooms;
 using Roomby.API.Rooms.Data;
+using Roomby.API.Rooms.Infrastructure.Filters;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Reflection;
@@ -47,7 +48,7 @@ namespace Rooms.API.Rooms.Extensions
 
             services.AddMvc(options =>
             {
-                //options.Filters.Add(typeof(HttpGlobalExceptionFilter));
+                options.Filters.Add(typeof(HttpGlobalExceptionFilter));
             })
             .AddNewtonsoftJson(x =>
             {
