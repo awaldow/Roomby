@@ -175,7 +175,7 @@ resource "azurerm_app_service" "roombyuserstest" {
   }
 
   connection_string {
-    name = "RoombyRoomSql"
+    name = "RoombyUsersSql"
     type = "SQLAzure"
     value = "Server=tcp:${azurerm_sql_server.roombysqlserver.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_mssql_database.roombyusersdb.name};Persist Security Info=False;User ID=${azurerm_sql_server.roombysqlserver.administrator_login};Password=${azurerm_sql_server.roombysqlserver.administrator_login_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
   }
