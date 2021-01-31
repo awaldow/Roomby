@@ -211,6 +211,10 @@
             "type": "string",
             "nullable": true
           },
+          "subscriptionId": {
+            "type": "string",
+            "nullable": true
+          },
           "household": {
             "$ref": "#/components/schemas/Household"
           }
