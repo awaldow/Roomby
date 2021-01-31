@@ -1,0 +1,75 @@
+data "azurerm_app_service" "roombyroomsapp" {
+    name = var.rooms_app_service_name
+    resource_group_name = var.rooms_app_service_resource_group
+}
+
+data "azurerm_app_service" "roombyusersapp" {
+    name = var.users_app_service_name
+    resource_group_name = var.users_app_service_resource_group
+}
+
+resource "azurerm_api_management_product" "roombyproduct" {
+  product_id            = var.roomby_product_id
+  api_management_name   = azurerm_api_management.roombyapim.name
+  resource_group_name   = azurerm_api_management.roombyapim.resource_group_name
+  display_name          = "Roomby APIs"
+  subscription_required = true
+  published             = true
+}
+
+resource "azurerm_api_management_version_set" "usersversionset" {
+  name                = "users"
+  api_management_name = azurerm_api_management.roombyapim.name
+  resource_group_name = azurerm_api_management.roombyapim.resource_group_name
+  display_name        = "Roomby Users API"
+  versioning_scheme   = "Segment"
+}
+
+resource "azurerm_api_management_api" "usersapi" {
+  name                = var.users_api_name
+  api_management_name = azurerm_api_management.roombyapim.name
+  resource_group_name = azurerm_api_management.roombyapim.resource_group_name
+  display_name        = "Users API"
+  revision            = "1"
+  version             = "v1"
+  version_set_id      = azurerm_api_management_version_set.usersversionset.id
+  path                = "users"
+  protocols           = ["https"]
+  service_url         = "${data.azurerm_app_service.roombyusersapp.default_site_hostname}/api/"
+}
+
+resource "azurerm_api_management_product_api" "usersproductapi" {
+  api_name            = azurerm_api_management_api.usersapi.name
+  product_id          = azurerm_api_management_product.roombyproduct.product_id
+  api_management_name = azurerm_api_management.roombyapim.name
+  resource_group_name = azurerm_api_management.roombyapim.resource_group_name
+}
+
+resource "azurerm_api_management_version_set" "roomsversionset" {
+  name                = "rooms"
+  api_management_name = azurerm_api_management.roombyapim.name
+  resource_group_name = azurerm_api_management.roombyapim.resource_group_name
+  display_name        = "Roomby Rooms API"
+  versioning_scheme   = "Segment"
+}
+
+resource "azurerm_api_management_api" "roomsapi" {
+  name                = var.rooms_api_name
+  api_management_name = azurerm_api_management.roombyapim.name
+  resource_group_name = azurerm_api_management.roombyapim.resource_group_name
+  revision            = "1"
+  display_name        = "Rooms API"
+  revision            = "1"
+  version             = "v1"
+  version_set_id      = azurerm_api_management_version_set.usersversionset.id
+  path                = "rooms"
+  protocols           = ["https"]
+  service_url         = "${data.azurerm_app_service.roombyroomsapp.default_site_hostname}/api/"
+}
+
+resource "azurerm_api_management_product_api" "roomsproductapi" {
+  api_name            = azurerm_api_management_api.roomsapi.name
+  product_id          = azurerm_api_management_product.roombyproduct.product_id
+  api_management_name = azurerm_api_management.roombyapim.name
+  resource_group_name = azurerm_api_management.roombyapim.resource_group_name
+}

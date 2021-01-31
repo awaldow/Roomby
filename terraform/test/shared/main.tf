@@ -22,49 +22,9 @@ provider "azurerm" {
 
 data "azurerm_client_config" "current" {}
 
-variable "resource_group_name" {
-  default = "rg-roomby-users-test"
-  description = "The name of the resource group"
-}
-
-variable "resource_group_location" {
-  description = "The location of the resource group (West US, Central US, etc.)"
-}
-
-variable "storage_account_name" {
-  default = "stroombytest"
-  description = "The name of the storage account for Roomby"
-}
-
-variable "tasks_table_name" {
-  default = "roombytasks"
-}
-
-variable "purchases_table_name" {
-  default = "roombypurchases"
-}
-
-variable "apim_service_name" {
-  default = "roomby-api-test"
-}
-
 resource "azurerm_resource_group" "roombytest" {
   name     = var.resource_group_name
   location = var.resource_group_location
-}
-
-resource "azurerm_api_management" "roombyapim" {
-  name                = var.apim_service_name
-  location            = azurerm_resource_group.roombytest.location
-  resource_group_name = azurerm_resource_group.roombytest.name
-  publisher_name      = "Roomby"
-  publisher_email     = "a.wal.bear@gmail.com"
-
-  sku_name = "Consumption_1"
-
-  tags = {
-    environment = "test"
-  }
 }
 
 resource "azurerm_storage_account" "roombystorage" {
