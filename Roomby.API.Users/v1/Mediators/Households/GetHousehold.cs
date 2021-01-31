@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Roomby.API.Models;
 using Roomby.API.Users.Data;
 
-namespace Roomby.API.Users.Mediators
+namespace Roomby.API.Users.v1.Mediators
 {
     public class GetHousehold : IRequest<Household>
     {

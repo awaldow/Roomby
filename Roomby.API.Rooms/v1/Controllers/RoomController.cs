@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Roomby.API.Models;
 using Roomby.API.Rooms.Infrastructure.Exceptions;
-using Roomby.API.Rooms.Mediators;
+using Roomby.API.Rooms.v1.Mediators;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Roomby.API.Rooms.Controllers
+namespace Roomby.API.Rooms.v1.Controllers
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1")]

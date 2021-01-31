@@ -9,7 +9,7 @@ using Roomby.API.Models;
 using Roomby.API.Rooms.Data;
 using Roomby.API.Rooms.Infrastructure.Exceptions;
 
-namespace Roomby.API.Rooms.Mediators
+namespace Roomby.API.Rooms.v1.Mediators
 {
     public class UpdateRoom : IRequest<(Room, Room)>
     {

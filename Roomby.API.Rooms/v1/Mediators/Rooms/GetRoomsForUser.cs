@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Roomby.API.Models;
 using Roomby.API.Rooms.Data;
 
-namespace Roomby.API.Rooms.Mediators
+namespace Roomby.API.Rooms.v1.Mediators
 {
     public class GetRoomsForHousehold : IRequest<List<Room>>
     {

@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Roomby.API.Models;
-using Roomby.API.Users.Mediators;
+using Roomby.API.Users.v1.Mediators;
 using System;
 using System.Threading.Tasks;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Roomby.API.Users.Controllers
+namespace Roomby.API.Users.v1.Controllers
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1")]
@@ -17,13 +17,13 @@ namespace Roomby.API.Users.Controllers
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-    public class UsersController : ControllerBase
+    public class HouseholdsController : ControllerBase
     {
          private readonly IMediator _mediator;
 
-        private readonly ILogger<UsersController> _logger;
+        private readonly ILogger<HouseholdsController> _logger;
 
-        public UsersController(IMediator mediator, ILogger<UsersController> logger)
+        public HouseholdsController(IMediator mediator, ILogger<HouseholdsController> logger)
         {
             _mediator = mediator;
             _logger = logger;
@@ -31,22 +31,22 @@ namespace Roomby.API.Users.Controllers
 
         #region V1
         /// <summary>
-        /// GetUserAsync(Guid userId)
+        /// GetHouseholdAsync(Guid householdId)
         /// </summary>
         /// <remarks>
-        /// Returns the User object for <paramref name="userId"/>
+        /// Returns the Household object for <paramref name="householdId"/>
         /// </remarks>
-        /// <param name="userId">User ID for the User to get</param>
-        /// <returns>User object with id <paramref name="userId"/></returns>
-        [HttpGet("{userId}", Name = "GetUserAsync")]
+        /// <param name="householdId">Household ID for the Household to get</param>
+        /// <returns>Household object with id <paramref name="householdId"/></returns>
+        [HttpGet("{householdId}", Name = "GetHouseholdAsync")]
         [MapToApiVersion("1")]
-        [ProducesResponseType(typeof(User), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Household), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<User>> GetUserAsync(Guid userId)
+        public async Task<ActionResult<Household>> GetHouseholdAsync(Guid householdId)
         {
             try
             {
-                var room = await _mediator.Send(new GetUser { UserId = userId });
+                var room = await _mediator.Send(new GetHousehold { HouseholdId = householdId });
                 if (room == null)
                 {
                     return NotFound();
