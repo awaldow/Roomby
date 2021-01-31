@@ -47,4 +47,8 @@
     <ProjectReference Include="..\Roomby.API.Rooms.Data\Roomby.API.Rooms.Data.csproj" />
   </ItemGroup>
 
+  <Target Name="GenerateSwaggerJson" AfterTargets="Build">
+    <Exec Command="./genSwagger.ps1" LogStandardErrorAsError="True" ContinueOnError="False" WorkingDirectory="$(MSBuildProjectDirectory)" />
+  </Target>
+  
 </Project>

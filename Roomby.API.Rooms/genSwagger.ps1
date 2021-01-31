@@ -1,0 +1,1 @@
+swagger tofile --output Roomby.API.Rooms.json bin/Debug/net5.0/Roomby.API.Rooms.dll v1
