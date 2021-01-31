@@ -1,11 +1,21 @@
 name: Roomby.API.Users-$(Date:yyyyMMdd)$(Rev:.r)
-trigger:
-  branches:
-    include:
-    - master
-  paths:
-    include:
-    - Roomby.API.Users
+trigger: none
+resources:
+  pipelines:
+  - pipeline: 'Roomby_API_Shared'
+    project: Roomby
+    source: Roomby.API.Shared
+    trigger:
+      branches: 
+        include:
+          - master 
+# trigger:
+#   branches:
+#     include:
+#     - master
+#   paths:
+#     include:
+#     - Roomby.API.Users
 
 variables:
 - name: buildConfiguration
