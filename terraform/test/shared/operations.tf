@@ -1,4 +1,4 @@
-# TODO: Find a way to generate this and link to the correct version from the generated swagger.json
+# TODO: Find a way to generate these and link to the correct version from the generated swagger.json
 
 resource "azurerm_api_management_api_operation" "rooms_GetHouseholdAsync" {
   operation_id        = "gethouseholdasync"
