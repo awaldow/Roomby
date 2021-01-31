@@ -1,10 +1,10 @@
-# TODO: Find a way to generate these and link to the correct version from the generated swagger.json
+# TODO: Need to generate these based on the available swagger json files at build time
 
 resource "azurerm_api_management_api_operation" "rooms_GetHouseholdAsync" {
   operation_id        = "gethouseholdasync"
-  api_name            = azurerm_api_management_api.usersapi.name
-  api_management_name = azurerm_api_management_api.usersapi.api_management_name
-  resource_group_name = azurerm_api_management_api.usersapi.resource_group_name
+  api_name            = azurerm_api_management_api.usersapiv1.name
+  api_management_name = azurerm_api_management_api.usersapiv1.api_management_name
+  resource_group_name = azurerm_api_management_api.usersapiv1.resource_group_name
   display_name        = "GetHouseholdAsync(Guid householdId)"
   method              = "GET"
   url_template        = "/api/v1/Households/{householdId}"

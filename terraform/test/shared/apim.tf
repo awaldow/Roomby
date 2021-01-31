@@ -15,3 +15,28 @@ resource "azurerm_api_management" "roombyapim" {
     environment = "test"
   }
 }
+
+resource "azurerm_api_management_product" "roombyproduct" {
+  product_id            = var.roomby_product_id
+  api_management_name   = azurerm_api_management.roombyapim.name
+  resource_group_name   = azurerm_api_management.roombyapim.resource_group_name
+  display_name          = "Roomby APIs"
+  subscription_required = true
+  published             = true
+}
+
+resource "azurerm_api_management_version_set" "roomsversionset" {
+  name                = "rooms"
+  api_management_name = azurerm_api_management.roombyapim.name
+  resource_group_name = azurerm_api_management.roombyapim.resource_group_name
+  display_name        = "Roomby Rooms API"
+  versioning_scheme   = "Segment"
+}
+
+resource "azurerm_api_management_version_set" "usersversionset" {
+  name                = "users"
+  api_management_name = azurerm_api_management.roombyapim.name
+  resource_group_name = azurerm_api_management.roombyapim.resource_group_name
+  display_name        = "Roomby Users API"
+  versioning_scheme   = "Segment"
+}

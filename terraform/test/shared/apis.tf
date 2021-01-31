@@ -8,24 +8,9 @@ data "azurerm_app_service" "roombyusersapp" {
     resource_group_name = var.users_app_service_resource_group
 }
 
-resource "azurerm_api_management_product" "roombyproduct" {
-  product_id            = var.roomby_product_id
-  api_management_name   = azurerm_api_management.roombyapim.name
-  resource_group_name   = azurerm_api_management.roombyapim.resource_group_name
-  display_name          = "Roomby APIs"
-  subscription_required = true
-  published             = true
-}
+# TODO: Need to generate these based on the available swagger json files at build time
 
-resource "azurerm_api_management_version_set" "usersversionset" {
-  name                = "users"
-  api_management_name = azurerm_api_management.roombyapim.name
-  resource_group_name = azurerm_api_management.roombyapim.resource_group_name
-  display_name        = "Roomby Users API"
-  versioning_scheme   = "Segment"
-}
-
-resource "azurerm_api_management_api" "usersapi" {
+resource "azurerm_api_management_api" "usersapiv1" {
   name                = var.users_api_name
   api_management_name = azurerm_api_management.roombyapim.name
   resource_group_name = azurerm_api_management.roombyapim.resource_group_name
@@ -39,21 +24,13 @@ resource "azurerm_api_management_api" "usersapi" {
 }
 
 resource "azurerm_api_management_product_api" "usersproductapi" {
-  api_name            = azurerm_api_management_api.usersapi.name
+  api_name            = azurerm_api_management_api.usersapiv1.name
   product_id          = azurerm_api_management_product.roombyproduct.product_id
   api_management_name = azurerm_api_management.roombyapim.name
   resource_group_name = azurerm_api_management.roombyapim.resource_group_name
 }
 
-resource "azurerm_api_management_version_set" "roomsversionset" {
-  name                = "rooms"
-  api_management_name = azurerm_api_management.roombyapim.name
-  resource_group_name = azurerm_api_management.roombyapim.resource_group_name
-  display_name        = "Roomby Rooms API"
-  versioning_scheme   = "Segment"
-}
-
-resource "azurerm_api_management_api" "roomsapi" {
+resource "azurerm_api_management_api" "roomsapiv1" {
   name                = var.rooms_api_name
   api_management_name = azurerm_api_management.roombyapim.name
   resource_group_name = azurerm_api_management.roombyapim.resource_group_name
@@ -68,7 +45,7 @@ resource "azurerm_api_management_api" "roomsapi" {
 }
 
 resource "azurerm_api_management_product_api" "roomsproductapi" {
-  api_name            = azurerm_api_management_api.roomsapi.name
+  api_name            = azurerm_api_management_api.roomsapiv`.name
   product_id          = azurerm_api_management_product.roombyproduct.product_id
   api_management_name = azurerm_api_management.roombyapim.name
   resource_group_name = azurerm_api_management.roombyapim.resource_group_name
