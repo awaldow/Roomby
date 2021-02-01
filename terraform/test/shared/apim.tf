@@ -5,7 +5,7 @@ resource "azurerm_api_management" "roombyapim" {
   publisher_name      = "Roomby"
   publisher_email     = "a.wal.bear@gmail.com"
 
-  sku_name = "Consumption_1"
+  sku_name = "Consumption_0"
 
   identity {
     type = "SystemAssigned"
