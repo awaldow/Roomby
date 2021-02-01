@@ -25,7 +25,7 @@ resource "azurerm_api_management_product" "roombyproduct" {
   published             = true
 }
 
-resource "azurerm_api_management_version_set" "roomsversionset" {
+resource "azurerm_api_management_api_version_set" "roomsversionset" {
   name                = "rooms"
   api_management_name = azurerm_api_management.roombyapim.name
   resource_group_name = azurerm_api_management.roombyapim.resource_group_name
@@ -33,7 +33,7 @@ resource "azurerm_api_management_version_set" "roomsversionset" {
   versioning_scheme   = "Segment"
 }
 
-resource "azurerm_api_management_version_set" "usersversionset" {
+resource "azurerm_api_management_api_version_set" "usersversionset" {
   name                = "users"
   api_management_name = azurerm_api_management.roombyapim.name
   resource_group_name = azurerm_api_management.roombyapim.resource_group_name
