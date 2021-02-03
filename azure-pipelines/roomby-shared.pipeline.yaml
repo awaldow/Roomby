@@ -17,7 +17,7 @@ variables:
 stages:
 - stage: 'Deploy'
   dependsOn: Build
-  displayName: 'Deploy the API'
+  displayName: 'Provision the environments using terraform'
   jobs:
   - job: 'Provision_Test'
     displayName: 'Provision Test infrastructure'
