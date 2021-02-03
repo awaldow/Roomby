@@ -36,3 +36,24 @@ variable "application_insights_name" {
   default = "appi-roomby-test"
   description = "The name of the application insights service for Roomby"
 }
+
+variable "apim_service_name" {
+  default = "roomby-api-test"
+}
+
+variable "roomby_product_id" {
+    default = "roomby"
+}
+
+variable "roomby_version_set_name" {
+    default = "rooms"
+}
+
+variable "sql_server_name" {
+  default = "sqlserver-roomby-test"
+  description = "The name of the Azure SQL Server instance for Roomby"
+}
+
+variable "sql_server_admin_pass" {
+  description = "The name of the SQL server admin account password"
+}

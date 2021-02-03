@@ -48,3 +48,12 @@ variable "roomby_product_id" {
 variable "roomby_version_set_name" {
     default = "users"
 }
+
+variable "sql_server_name" {
+  default = "sqlserver-roomby-test"
+  description = "The name of the Azure SQL Server instance for Roomby"
+}
+
+variable "sql_server_admin_pass" {
+  description = "The name of the SQL server admin account password"
+}
