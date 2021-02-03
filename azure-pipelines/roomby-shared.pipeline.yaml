@@ -15,14 +15,13 @@ variables:
   value: 'Visual Studio Enterprise'
 
 stages:
-- stage: 'Deploy'
-  dependsOn: Build
+- stage: 'Provision'
   displayName: 'Provision the environments using terraform'
   jobs:
   - job: 'Provision_Test'
     displayName: 'Provision Test infrastructure'
     variables:
-      - group: Roomby Rooms Terraform Test Backend Config
+      - group: Roomby Shared Terraform Test Backend Config
     pool:
       vmImage: 'windows-2019'
     steps:
