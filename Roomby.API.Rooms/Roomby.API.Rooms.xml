@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Roomby.API.Rooms</name>
+    </assembly>
+    <members>
+        <member name="M:Roomby.API.Rooms.v1.Controllers.RoomController.GetRoomsForHouseholdAsync(System.Guid)">
+            <summary>
+            GetRoomsForHouseholdAsync(Guid householdId)
+            </summary>
+            <remarks>
+            Returns a list of Rooms (sorted by name) for a given Household ID
+            </remarks>
+            <param name="householdId">The Household ID to return a list of Rooms for</param>
+            <returns>A List of Room objects for the given Household ID</returns>
+        </member>
+        <member name="M:Roomby.API.Rooms.v1.Controllers.RoomController.GetRoomAsync(System.Guid)">
+            <summary>
+            GetRoomAsync(Guid roomId)
+            </summary>
+            <remarks>
+            Returns the Room object for <paramref name="roomId"/>
+            </remarks>
+            <param name="roomId">Room ID for the Room to get</param>
+            <returns>Room object with id <paramref name="roomId"/></returns>
+        </member>
+        <member name="M:Roomby.API.Rooms.v1.Controllers.RoomController.CreateRoomAsync(Roomby.API.Models.Room)">
+            <summary>
+            CreateRoomAsync(Room roomToCreate)
+            </summary>
+            <remarks>
+            Creates the provided <paramref name="roomToCreate"/>
+            </remarks>
+            <param name="roomToCreate">A Room object. See <see cref="!:Roomby.API.Rooms.Mediators.CreateRoomValidator"/> for validation information</param>
+            <returns>The created Room object</returns>
+        </member>
+        <member name="M:Roomby.API.Rooms.v1.Controllers.RoomController.UpdateRoomAsync(System.Guid,Roomby.API.Models.Room)">
+            <summary>
+            UpdateRoomAsync(Guid roomId, [FromBody] Room roomToUpdate)
+            </summary>
+            <remarks>
+            Updates the Room <paramref name="roomId"/> with the values from <paramref name="roomToUpdate"/> if it exists; if <paramref name="roomId"/>
+            is omitted, a new Room will be created instead.
+            </remarks>
+            <param name="roomId">Guid ID for the Room to update</param>
+            <param name="roomToUpdate">Room object with the request changes filled in</param>
+            <returns>The updated room object, or a newly created one if <paramref name="roomId"/> is omitted</returns>
+        </member>
+        <member name="M:Roomby.API.Rooms.v1.Controllers.RoomController.DeleteRoomAsync(System.Guid)">
+            <summary>
+            DeleteRoomAsync(Guid roomId)
+            </summary>
+            <remarks>
+            Deletes the Room with the given <paramref name="roomId"/>
+            </remarks>
+            <param name="roomId">Room ID for the Room to delete</param>
+            <returns>NoContent if successfully deleted; if ID can't be found or is not provided, BadRequest is returned.</returns>
+        </member>
+    </members>
+</doc>

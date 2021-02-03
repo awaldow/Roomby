@@ -11,6 +11,36 @@ namespace Roomby.API.Rooms.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
+        public static IApplicationBuilder UseSwaggerandRedoc(this IApplicationBuilder app, IConfiguration config, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
+        {
+            app.UseSwagger(c =>
+            {
+                var basePath = env.IsDevelopment() ? "/" : "/";
+                c.PreSerializeFilters.Add((swaggerDoc, httpReq) =>
+                {
+                    //swaggerDoc.Servers = new List<OpenApiServer> { new OpenApiServer { Url = $"{httpReq.Scheme}://{httpReq.Host.Value}{basePath}" } };
+                    swaggerDoc.Servers = new List<OpenApiServer> { new OpenApiServer { Url = $"https://{httpReq.Host.Value}{basePath}" } };
+                });
+            });
+            app.UseReDoc(c =>
+            {
+                var baseUrl = config["ApiBaseUrl"];
+                foreach (var desc in provider.ApiVersionDescriptions)
+                {
+                    if (!env.IsDevelopment())
+                    {
+                        c.SpecUrl($"{baseUrl}/swagger/{desc.GroupName}/swagger.json");
+                    }
+                    else
+                    {
+                        c.SpecUrl($"/swagger/{desc.GroupName}/swagger.json");
+                    }
+
+                }
+            });
+            return app;
+        }
+
         public static IApplicationBuilder UseSwaggerandSwaggerUI(this IApplicationBuilder app, IConfiguration config, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             app.UseSwagger(c =>

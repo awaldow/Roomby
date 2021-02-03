@@ -5,7 +5,7 @@
     <Configurations>Debug;Release;Staging</Configurations>
   </PropertyGroup>
 
- <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>Roomby.API.Rooms.xml</DocumentationFile>
   </PropertyGroup>
 
@@ -25,6 +25,7 @@
     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="5.6.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.6.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.6.3" />
+    <PackageReference Include="Swashbuckle.AspNetCore.ReDoc" Version="5.6.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.1" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.16.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.2">
@@ -46,4 +47,10 @@
     <ProjectReference Include="..\Roomby.API.Rooms.Data\Roomby.API.Rooms.Data.csproj" />
   </ItemGroup>
 
+  <Target Name="GenerateSwaggerJson" AfterTargets="Build">
+    <Exec Command="./genSwagger.ps1" LogStandardErrorAsError="True" ContinueOnError="False" WorkingDirectory="$(MSBuildProjectDirectory)" />
+  </Target>
+  <Target Name="GenerateAPIMTerraform" AfterTargets="GenerateSwaggerJson">
+    <Exec Command="dotnet tool run openapi-to-terraform -f Roomby.API.Rooms.v1.json -o /home/awaldow/source/repos/roomby/roomby.api/terraform/test/rooms -t terraformVarSub.json" LogStandardErrorAsError="True" ContinueOnError="False" WorkingDirectory="$(MSBuildProjectDirectory)" />
+  </Target>
 </Project>

@@ -12,6 +12,7 @@ namespace Roomby.API.Models
         public string Email { get; set; }
         public string Identity { get; set; }
         public string Provider { get; set; }
+        public string SubscriptionId { get; set; }
         public virtual Household Household { get; set; }
 
     }

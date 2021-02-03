@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "swashbuckle.aspnetcore.cli": {
+      "version": "5.6.3",
+      "commands": [
+        "swagger"
+      ]
+    },
+    "openapi-to-terraform": {
+      "version": "0.0.3",
+      "commands": [
+        "openapi-to-terraform"
+      ]
+    }
+  }
+}
