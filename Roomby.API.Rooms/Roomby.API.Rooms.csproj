@@ -5,7 +5,7 @@
     <Configurations>Debug;Release;Staging</Configurations>
   </PropertyGroup>
 
- <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>Roomby.API.Rooms.xml</DocumentationFile>
   </PropertyGroup>
 
@@ -50,5 +50,7 @@
   <Target Name="GenerateSwaggerJson" AfterTargets="Build">
     <Exec Command="./genSwagger.ps1" LogStandardErrorAsError="True" ContinueOnError="False" WorkingDirectory="$(MSBuildProjectDirectory)" />
   </Target>
-  
+  <Target Name="GenerateAPIMTerraform" AfterTargets="GenerateSwaggerJson">
+    <Exec Command="dotnet tool run openapi-to-terraform -f Roomby.API.Rooms.v1.json -o /home/awaldow/source/repos/roomby/roomby.api/terraform/test/rooms -t terraformVarSub.json" LogStandardErrorAsError="True" ContinueOnError="False" WorkingDirectory="$(MSBuildProjectDirectory)" />
+  </Target>
 </Project>

@@ -42,6 +42,18 @@ data "azurerm_storage_account" "roombysqlstorage" {
   name     = var.sqlstorage_account_name
 }
 
+data "azurerm_api_management" "roombyapim" {
+  name     = var.apim_service_name
+}
+
+data "azurerm_api_management_product" "roombyproduct" {
+  name     = var.roomby_product_id
+}
+
+data "azurerm_api_managment_version_set" "usersversionset" {
+  name     = var.roomby_version_set_name
+}
+
 resource "azurerm_mssql_database" "roombyusersdb" {
   name                = var.rooms_sql_db_name
   collation      = "SQL_Latin1_General_CP1_CI_AS"

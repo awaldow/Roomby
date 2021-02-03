@@ -293,7 +293,7 @@
         "description": "Creates the provided roomToCreate",
         "operationId": "CreateRoomAsync",
         "requestBody": {
-          "description": "A Room object. See Roomby.API.Rooms.Mediators.CreateRoomValidator for validation information",
+          "description": "A Room object. See !:Roomby.API.Rooms.Mediators.CreateRoomValidator for validation information",
           "content": {
             "application/json": {
               "schema": {
