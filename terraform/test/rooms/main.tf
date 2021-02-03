@@ -28,24 +28,45 @@ data "azurerm_resource_group" "roombytest" {
 
 data "azurerm_sql_server" "roombysqlserver" {
   name     = var.sql_server_name
+  resource_group_name = var.resource_group_name
 }
 
 data "azurerm_app_service_plan" "roombyplan" {
   name     = var.app_service_plan_name
+  resource_group_name = var.resource_group_name
 }
 
 data "azurerm_application_insights" "roombyappi" {
   name     = var.application_insights_name
+  resource_group_name = var.resource_group_name
 }
 
 data "azurerm_storage_account" "roombysqlstorage" {
   name     = var.sqlstorage_account_name
+  resource_group_name = var.resource_group_name
+}
+
+data "azurerm_api_management" "roombyapim" {
+  name     = var.apim_service_name
+  resource_group_name = var.resource_group_name
+}
+
+data "azurerm_api_management_product" "roombyproduct" {
+  product_id     = var.roomby_product_id
+  api_management_name = var.apim_service_name
+  resource_group_name = var.resource_group_name
+}
+
+data "azurerm_api_management_api_version_set" "roomsversionset" {
+  name     = var.roomby_version_set_name
+  api_management_name = var.apim_service_name
+  resource_group_name = var.resource_group_name
 }
 
 resource "azurerm_mssql_database" "roombyroomsdb" {
   name                = var.rooms_sql_db_name
   collation      = "SQL_Latin1_General_CP1_CI_AS"
-  server_id         = azurerm_sql_server.roombysqlserver.id
+  server_id         = data.azurerm_sql_server.roombysqlserver.id
   max_size_gb   = 32
   sku_name = "GP_S_Gen5_2"
   storage_account_type = "GRS"
@@ -88,7 +109,7 @@ resource "azurerm_app_service" "roombyroomstest" {
   connection_string {
     name = "RoombyRoomSql"
     type = "SQLAzure"
-    value = "Server=tcp:${data.azurerm_sql_server.roombysqlserver.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_mssql_database.roombyroomsdb.name};Persist Security Info=False;User ID=${data.azurerm_sql_server.roombysqlserver.administrator_login};Password=${data.azurerm_sql_server.roombysqlserver.administrator_login_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+    value = "Server=tcp:${data.azurerm_sql_server.roombysqlserver.fqdn},1433;Initial Catalog=${azurerm_mssql_database.roombyroomsdb.name};Persist Security Info=False;User ID=${data.azurerm_sql_server.roombysqlserver.administrator_login};Password=${var.sql_server_admin_pass};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
   }
 
   identity {
@@ -151,7 +172,7 @@ resource "azurerm_key_vault_secret" "roomsappinsightsconnection" {
 
 resource "azurerm_key_vault_secret" "roomssqldbconnection" {
   name = "ConnectionStrings--RoombyRoomSql"
-  value = "Server=tcp:${data.azurerm_sql_server.roombysqlserver.fully_qualified_domain_name},1433;Initial Catalog=${azurerm_mssql_database.roombyroomsdb.name};Persist Security Info=False;User ID=${data.azurerm_sql_server.roombysqlserver.administrator_login};Password=${data.azurerm_sql_server.roombysqlserver.administrator_login_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  value = "Server=tcp:${data.azurerm_sql_server.roombysqlserver.fqdn},1433;Initial Catalog=${azurerm_mssql_database.roombyroomsdb.name};Persist Security Info=False;User ID=${data.azurerm_sql_server.roombysqlserver.administrator_login};Password=${var.sql_server_admin_pass};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
   key_vault_id = azurerm_key_vault.roombyroomstest.id
 }
 
