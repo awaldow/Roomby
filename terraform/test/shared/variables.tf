@@ -62,7 +62,7 @@ variable "rooms_app_service_resource_group" {
 }
 
 variable "application_insights_name" {
-  default = "appi-roomby-rooms-test"
+  default = "appi-roomby-test"
   description = "The name of the application insights service for Roomby"
 }
 
