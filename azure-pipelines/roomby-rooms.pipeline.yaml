@@ -53,6 +53,9 @@ stages:
       inputs:
         version: 5.x
     
+    - task: NuGetAuthenticate@0
+      displayName: 'Nuget Authenticate'
+
     - task: DotNetCoreCLI@2
       displayName: 'dotnet restore'
       inputs:
