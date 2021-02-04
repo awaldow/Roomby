@@ -40,7 +40,7 @@ stages:
   - job: 'Build'
     displayName: 'Build job'
     pool:
-      vmImage: 'windows-2019'
+      vmImage: 'ubuntu-20.04'
 
     steps:
     - task: NuGetToolInstaller@0
@@ -119,7 +119,7 @@ stages:
     variables:
       - group: Roomby Rooms Terraform Test Backend Config
     pool:
-      vmImage: 'windows-2019'
+      vmImage: 'ubuntu-20.04'
     steps:
       - download: current
         artifact: terraformtest
