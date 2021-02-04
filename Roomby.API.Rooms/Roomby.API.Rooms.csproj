@@ -48,6 +48,6 @@
   </ItemGroup>
 
   <Target Name="GenerateSwaggerJsonAndAPIMTerraform" AfterTargets="Build">
-    <Exec Command="./genSwagger.ps1" LogStandardErrorAsError="True" ContinueOnError="False" WorkingDirectory="$(MSBuildProjectDirectory)" />
+    <Exec Command="BUILD_CONFIGURATION=$(Configuration) ./genSwagger.ps1" LogStandardErrorAsError="True" ContinueOnError="False" WorkingDirectory="$(MSBuildProjectDirectory)" />
   </Target>
 </Project>
