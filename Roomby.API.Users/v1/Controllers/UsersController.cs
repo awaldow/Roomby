@@ -62,6 +62,28 @@ namespace Roomby.API.Users.v1.Controllers
                 return StatusCode(500);
             }
         }
+
+        /// <summary>
+        /// CreateUserAsync(User userToCreate)
+        /// </summary>
+        /// <remarks>
+        /// Creates the provided <paramref name="userToCreate"/>
+        /// </remarks>
+        /// <param name="userToCreate">A User object. See <see cref="Roomby.API.Users.Mediators.CreateUserValidator"/> for validation information</param>
+        /// <returns>The created User object</returns>
+        [HttpPost(Name = "CreateUserAsync")]
+        [MapToApiVersion("1")]
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(User), StatusCodes.Status201Created)]
+        
+        public async Task<ActionResult<User>> CreateUserAsync(User userToCreate)
+        {
+            // TODO: use bad requests here to test global 500 filter, maybe we don't need those try catches in the other controller actions
+            var created = await _mediator.Send(new CreateUser { UserToCreate = userToCreate });
+
+            return CreatedAtAction(nameof(this.GetUserAsync), new { id = created.Id }, created);
+        }
         #endregion
     }
 }
