@@ -40,7 +40,7 @@ stages:
   - job: 'Build'
     displayName: 'Build job'
     pool:
-      vmImage: 'windows-2019'
+      vmImage: 'ubuntu-20.04'
       demands:
       - npm
 
@@ -121,7 +121,7 @@ stages:
     variables:
       - group: Roomby Users Terraform Test Backend Config
     pool:
-      vmImage: 'windows-2019'
+      vmImage: 'ubuntu-20.04'
     steps:
       - download: current
         artifact: terraformtest
