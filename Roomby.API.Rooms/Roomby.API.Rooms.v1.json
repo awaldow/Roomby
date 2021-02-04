@@ -10,7 +10,7 @@
     "version": "1"
   },
   "paths": {
-    "/api/v1/Room/{householdId}": {
+    "/api/v1/Room/forHousehold/{householdId}": {
       "get": {
         "tags": [
           "Room"
