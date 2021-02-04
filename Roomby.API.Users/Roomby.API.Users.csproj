@@ -47,11 +47,7 @@
     <ProjectReference Include="..\Roomby.API.Users.Data\Roomby.API.Users.Data.csproj" />
   </ItemGroup>
 
-  <Target Name="GenerateSwaggerJson" AfterTargets="Build">
-    <Exec Command="./genSwagger.ps1" LogStandardErrorAsError="True" ContinueOnError="False" WorkingDirectory="$(MSBuildProjectDirectory)" />
+  <Target Name="GenerateSwaggerJsonAndAPIMTerraform" AfterTargets="Build">
+    <Exec Command="BUILD_CONFIGURATION=$(Configuration) ./genSwagger.ps1" LogStandardErrorAsError="True" ContinueOnError="False" WorkingDirectory="$(MSBuildProjectDirectory)" />
   </Target>
-  <Target Name="GenerateAPIMTerraform" AfterTargets="GenerateSwaggerJson">
-    <Exec Command="dotnet tool run openapi-to-terraform -f Roomby.API.Users.v1.json -o /home/awaldow/source/repos/roomby/roomby.api/terraform/test/users -t terraformVarSub.json" LogStandardErrorAsError="True" ContinueOnError="False" WorkingDirectory="$(MSBuildProjectDirectory)" />
-  </Target>
-
 </Project>

@@ -78,6 +78,71 @@
         }
       }
     },
+    "/api/v1/Households": {
+      "post": {
+        "tags": [
+          "Households"
+        ],
+        "summary": "CreateHouseholdAsync(Household householdToCreate)",
+        "description": "Creates the provided householdToCreate",
+        "operationId": "CreateHouseholdAsync",
+        "requestBody": {
+          "description": "A Household object. See !:Roomby.API.Users.Mediators.CreateHouseholdValidator for validation information",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Household"
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Household"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/Users/{userId}": {
       "get": {
         "tags": [

@@ -40,7 +40,7 @@ stages:
   - job: 'Build'
     displayName: 'Build job'
     pool:
-      vmImage: 'windows-2019'
+      vmImage: 'ubuntu-20.04'
 
     steps:
     - task: NuGetToolInstaller@0
@@ -53,6 +53,9 @@ stages:
       inputs:
         version: 5.x
     
+    - task: NuGetAuthenticate@0
+      displayName: 'Nuget Authenticate'
+
     - task: DotNetCoreCLI@2
       displayName: 'dotnet restore'
       inputs:
@@ -116,7 +119,7 @@ stages:
     variables:
       - group: Roomby Rooms Terraform Test Backend Config
     pool:
-      vmImage: 'windows-2019'
+      vmImage: 'ubuntu-20.04'
     steps:
       - download: current
         artifact: terraformtest
@@ -141,7 +144,7 @@ stages:
         inputs:
           command: plan
           environmentServiceNameAzureRM: 'Visual Studio Enterprise'
-          commandOptions: -out=terraform.plan -var "resource_group_location=$(resourceGroupLocation)" -var "sql_server_admin=$(sqlServerAdmin)" -var "sql_server_admin_pass=$(sqlServerAdminPass)"
+          commandOptions: -out=terraform.plan -var "resource_group_location=$(resourceGroupLocation)" -var "sql_server_admin_pass=$(sqlServerAdminPass)"
           workingDirectory: '$(Pipeline.Workspace)/terraformtest'
         displayName: Terraform Plan
 

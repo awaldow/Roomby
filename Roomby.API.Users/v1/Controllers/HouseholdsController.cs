@@ -62,6 +62,28 @@ namespace Roomby.API.Users.v1.Controllers
                 return StatusCode(500);
             }
         }
+
+        /// <summary>
+        /// CreateHouseholdAsync(Household householdToCreate)
+        /// </summary>
+        /// <remarks>
+        /// Creates the provided <paramref name="householdToCreate"/>
+        /// </remarks>
+        /// <param name="householdToCreate">A Household object. See <see cref="Roomby.API.Users.Mediators.CreateHouseholdValidator"/> for validation information</param>
+        /// <returns>The created Household object</returns>
+        [HttpPost(Name = "CreateHouseholdAsync")]
+        [MapToApiVersion("1")]
+        [Consumes("application/json")]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(Household), StatusCodes.Status201Created)]
+        
+        public async Task<ActionResult<Household>> CreateRoomAsync(Household householdToCreate)
+        {
+            // TODO: use bad requests here to test global 500 filter, maybe we don't need those try catches in the other controller actions
+            var created = await _mediator.Send(new CreateHousehold { HouseholdToCreate = householdToCreate });
+
+            return CreatedAtAction(nameof(this.GetHouseholdAsync), new { id = created.Id }, created);
+        }
         #endregion
     }
 }
