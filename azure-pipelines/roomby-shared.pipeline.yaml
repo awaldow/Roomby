@@ -25,9 +25,6 @@ stages:
     pool:
       vmImage: 'windows-2019'
     steps:
-      - download: current
-        artifact: terraformtest
-
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
         inputs:
           terraformVersion: '0.13.6'
