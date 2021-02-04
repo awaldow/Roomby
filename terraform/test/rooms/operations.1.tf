@@ -95,8 +95,7 @@ resource "azurerm_api_management_api_operation" "UpdateRoom" {
 	display_name	=	"UpdateRoomAsync(Guid roomId, [FromBody] Room roomToUpdate)"
 	method	=	"PUT"
 	url_template	=	"Room/{roomId}"
-	description	=	"Updates the Room roomId with the values from roomToUpdate if it exists; if roomId
-is omitted, a new Room will be created instead."
+	description	=	"Updates the Room roomId with the values from roomToUpdate if it exists; if roomId is omitted, a new Room will be created instead."
 	template_parameter {
 		name	=	"roomId"
 		required	=	true
