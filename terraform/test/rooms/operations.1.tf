@@ -5,7 +5,7 @@ resource "azurerm_api_management_api_operation" "GetRoomsForHouseholdAsync" {
 	resource_group_name	=	data.azurerm_api_management.roombyapim.resource_group_name
 	display_name	=	"GetRoomsForHouseholdAsync(Guid householdId)"
 	method	=	"Get"
-	url_template	=	"/api/v1/Room/{householdId}"
+	url_template	=	"Room/{householdId}"
 	description	=	"Returns a list of Rooms (sorted by name) for a given Household ID"
 	template_parameter {
 		name	=	"householdId"
@@ -46,7 +46,7 @@ resource "azurerm_api_management_api_operation" "GetRoomAsync" {
 	resource_group_name	=	data.azurerm_api_management.roombyapim.resource_group_name
 	display_name	=	"GetRoomAsync(Guid roomId)"
 	method	=	"Get"
-	url_template	=	"/api/v1/Room/{roomId}"
+	url_template	=	"Room/{roomId}"
 	description	=	"Returns the Room object for roomId"
 	template_parameter {
 		name	=	"roomId"
@@ -94,7 +94,7 @@ resource "azurerm_api_management_api_operation" "UpdateRoom" {
 	resource_group_name	=	data.azurerm_api_management.roombyapim.resource_group_name
 	display_name	=	"UpdateRoomAsync(Guid roomId, [FromBody] Room roomToUpdate)"
 	method	=	"Put"
-	url_template	=	"/api/v1/Room/{roomId}"
+	url_template	=	"Room/{roomId}"
 	description	=	"Updates the Room roomId with the values from roomToUpdate if it exists; if roomId
 is omitted, a new Room will be created instead."
 	template_parameter {
@@ -150,7 +150,7 @@ resource "azurerm_api_management_api_operation" "DeleteRoom" {
 	resource_group_name	=	data.azurerm_api_management.roombyapim.resource_group_name
 	display_name	=	"DeleteRoomAsync(Guid roomId)"
 	method	=	"Delete"
-	url_template	=	"/api/v1/Room/{roomId}"
+	url_template	=	"Room/{roomId}"
 	description	=	"Deletes the Room with the given roomId"
 	template_parameter {
 		name	=	"roomId"
@@ -195,7 +195,7 @@ resource "azurerm_api_management_api_operation" "CreateRoomAsync" {
 	resource_group_name	=	data.azurerm_api_management.roombyapim.resource_group_name
 	display_name	=	"CreateRoomAsync(Room roomToCreate)"
 	method	=	"Post"
-	url_template	=	"/api/v1/Room"
+	url_template	=	"Room"
 	description	=	"Creates the provided roomToCreate"
 	response {
 		status_code	=	401

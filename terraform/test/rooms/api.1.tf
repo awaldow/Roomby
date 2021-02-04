@@ -4,11 +4,11 @@ resource "azurerm_api_management_api" "roombyroomsapi_rev1" {
 	resource_group_name	=	data.azurerm_api_management.roombyapim.resource_group_name
 	display_name	=	"Roomby Rooms API"
 	revision	=	"1"
-	version	=	"1"
+	version	=	"v1"
 	version_set_id	=	data.azurerm_api_management_api_version_set.roomsversionset.id
 	path	=	"rooms"
 	protocols	=	["https"]
-	service_url	=	"${azurerm_app_service.roombyroomstest.default_site_hostname}/api/"
+	service_url	=	"https://${azurerm_app_service.roombyroomstest.default_site_hostname}/api/v1/"
 }
 
 resource "azurerm_api_management_product_api" "roombyroomsapi_rev1productapi" {
