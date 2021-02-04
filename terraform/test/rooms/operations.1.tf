@@ -4,7 +4,7 @@ resource "azurerm_api_management_api_operation" "GetRoomsForHouseholdAsync" {
 	api_management_name	=	data.azurerm_api_management.roombyapim.name
 	resource_group_name	=	data.azurerm_api_management.roombyapim.resource_group_name
 	display_name	=	"GetRoomsForHouseholdAsync(Guid householdId)"
-	method	=	"Get"
+	method	=	"GET"
 	url_template	=	"Room/{householdId}"
 	description	=	"Returns a list of Rooms (sorted by name) for a given Household ID"
 	template_parameter {
@@ -45,7 +45,7 @@ resource "azurerm_api_management_api_operation" "GetRoomAsync" {
 	api_management_name	=	data.azurerm_api_management.roombyapim.name
 	resource_group_name	=	data.azurerm_api_management.roombyapim.resource_group_name
 	display_name	=	"GetRoomAsync(Guid roomId)"
-	method	=	"Get"
+	method	=	"GET"
 	url_template	=	"Room/{roomId}"
 	description	=	"Returns the Room object for roomId"
 	template_parameter {
@@ -93,7 +93,7 @@ resource "azurerm_api_management_api_operation" "UpdateRoom" {
 	api_management_name	=	data.azurerm_api_management.roombyapim.name
 	resource_group_name	=	data.azurerm_api_management.roombyapim.resource_group_name
 	display_name	=	"UpdateRoomAsync(Guid roomId, [FromBody] Room roomToUpdate)"
-	method	=	"Put"
+	method	=	"PUT"
 	url_template	=	"Room/{roomId}"
 	description	=	"Updates the Room roomId with the values from roomToUpdate if it exists; if roomId
 is omitted, a new Room will be created instead."
@@ -149,7 +149,7 @@ resource "azurerm_api_management_api_operation" "DeleteRoom" {
 	api_management_name	=	data.azurerm_api_management.roombyapim.name
 	resource_group_name	=	data.azurerm_api_management.roombyapim.resource_group_name
 	display_name	=	"DeleteRoomAsync(Guid roomId)"
-	method	=	"Delete"
+	method	=	"DELETE"
 	url_template	=	"Room/{roomId}"
 	description	=	"Deletes the Room with the given roomId"
 	template_parameter {
@@ -194,7 +194,7 @@ resource "azurerm_api_management_api_operation" "CreateRoomAsync" {
 	api_management_name	=	data.azurerm_api_management.roombyapim.name
 	resource_group_name	=	data.azurerm_api_management.roombyapim.resource_group_name
 	display_name	=	"CreateRoomAsync(Room roomToCreate)"
-	method	=	"Post"
+	method	=	"POST"
 	url_template	=	"Room"
 	description	=	"Creates the provided roomToCreate"
 	response {

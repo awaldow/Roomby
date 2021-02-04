@@ -210,6 +210,71 @@
           }
         }
       }
+    },
+    "/api/v1/Users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "CreateUserAsync(User userToCreate)",
+        "description": "Creates the provided userToCreate",
+        "operationId": "CreateUserAsync",
+        "requestBody": {
+          "description": "A User object. See !:Roomby.API.Users.Mediators.CreateUserValidator for validation information",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {

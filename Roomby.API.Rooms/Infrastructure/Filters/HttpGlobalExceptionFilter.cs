@@ -11,10 +11,10 @@ namespace Roomby.API.Rooms.Infrastructure.Filters
 {
     public class HttpGlobalExceptionFilter : IExceptionFilter
     {
-        private readonly IHostingEnvironment env;
+        private readonly IHostEnvironment env;
         private readonly ILogger<HttpGlobalExceptionFilter> logger;
 
-        public HttpGlobalExceptionFilter(IHostingEnvironment env, ILogger<HttpGlobalExceptionFilter> logger)
+        public HttpGlobalExceptionFilter(IHostEnvironment env, ILogger<HttpGlobalExceptionFilter> logger)
         {
             this.env = env;
             this.logger = logger;

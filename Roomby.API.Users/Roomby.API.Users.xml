@@ -34,5 +34,15 @@
             <param name="userId">User ID for the User to get</param>
             <returns>User object with id <paramref name="userId"/></returns>
         </member>
+        <member name="M:Roomby.API.Users.v1.Controllers.UsersController.CreateUserAsync(Roomby.API.Models.User)">
+            <summary>
+            CreateUserAsync(User userToCreate)
+            </summary>
+            <remarks>
+            Creates the provided <paramref name="userToCreate"/>
+            </remarks>
+            <param name="userToCreate">A User object. See <see cref="!:Roomby.API.Users.Mediators.CreateUserValidator"/> for validation information</param>
+            <returns>The created User object</returns>
+        </member>
     </members>
 </doc>
