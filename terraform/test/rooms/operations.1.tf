@@ -5,7 +5,7 @@ resource "azurerm_api_management_api_operation" "GetRoomsForHouseholdAsync" {
 	resource_group_name	=	data.azurerm_api_management.roombyapim.resource_group_name
 	display_name	=	"GetRoomsForHouseholdAsync(Guid householdId)"
 	method	=	"GET"
-	url_template	=	"Room/{householdId}"
+	url_template	=	"Room/forHousehold/{householdId}"
 	description	=	"Returns a list of Rooms (sorted by name) for a given Household ID"
 	template_parameter {
 		name	=	"householdId"

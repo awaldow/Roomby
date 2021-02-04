@@ -40,7 +40,7 @@ namespace Roomby.API.Rooms.v1.Controllers
         /// </remarks>
         /// <param name="householdId">The Household ID to return a list of Rooms for</param>
         /// <returns>A List of Room objects for the given Household ID</returns>
-        [HttpGet("{householdId}", Name = "GetRoomsForHouseholdAsync")]
+        [HttpGet("forHousehold/{householdId}", Name = "GetRoomsForHouseholdAsync")]
         [MapToApiVersion("1")]
         [ProducesResponseType(typeof(List<Room>), StatusCodes.Status200OK)]
         public async Task<ActionResult<List<Room>>> GetRoomsForHouseholdAsync(Guid householdId)
