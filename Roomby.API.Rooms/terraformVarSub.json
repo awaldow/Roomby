@@ -4,5 +4,5 @@
     "api_path": "rooms",
     "api_backend_url": "${azurerm_app_service.roombyroomstest.default_site_hostname}/api/",
     "api_management_product_id": "data.azurerm_api_management_product.roombyproduct.product_id",
-    "api_management_version_set_id": "data.azurerm_api_management_product.roomsversionset.id"
+    "api_management_version_set_id": "data.azurerm_api_management_api_version_set.roomsversionset.id"
 }
