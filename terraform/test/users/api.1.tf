@@ -5,7 +5,7 @@ resource "azurerm_api_management_api" "roombyusersapi_rev1" {
 	display_name	=	"Roomby Users API"
 	revision	=	"1"
 	version	=	"1"
-	version_set_id	=	data.azurerm_api_management_product.usersversionset.id
+	version_set_id	=	data.azurerm_api_management_api_version_set.usersversionset.id
 	path	=	"users"
 	protocols	=	["https"]
 	service_url	=	"${azurerm_app_service.roombyuserstest.default_site_hostname}/api/"
