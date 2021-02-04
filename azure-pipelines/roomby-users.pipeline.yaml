@@ -1,5 +1,5 @@
 name: Roomby.API.Users-$(Date:yyyyMMdd)$(Rev:.r)
-trigger: none
+
 resources:
   pipelines:
   - pipeline: 'Roomby_API_Shared'
