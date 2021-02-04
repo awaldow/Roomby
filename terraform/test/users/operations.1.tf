@@ -5,7 +5,7 @@ resource "azurerm_api_management_api_operation" "GetHouseholdAsync" {
 	resource_group_name	=	data.azurerm_api_management.roombyapim.resource_group_name
 	display_name	=	"GetHouseholdAsync(Guid householdId)"
 	method	=	"Get"
-	url_template	=	"/api/v1/Households/{householdId}"
+	url_template	=	"Households/{householdId}"
 	description	=	"Returns the Household object for householdId"
 	template_parameter {
 		name	=	"householdId"
@@ -53,7 +53,7 @@ resource "azurerm_api_management_api_operation" "CreateHouseholdAsync" {
 	resource_group_name	=	data.azurerm_api_management.roombyapim.resource_group_name
 	display_name	=	"CreateHouseholdAsync(Household householdToCreate)"
 	method	=	"Post"
-	url_template	=	"/api/v1/Households"
+	url_template	=	"Households"
 	description	=	"Creates the provided householdToCreate"
 	response {
 		status_code	=	401
@@ -95,7 +95,7 @@ resource "azurerm_api_management_api_operation" "GetUserAsync" {
 	resource_group_name	=	data.azurerm_api_management.roombyapim.resource_group_name
 	display_name	=	"GetUserAsync(Guid userId)"
 	method	=	"Get"
-	url_template	=	"/api/v1/Users/{userId}"
+	url_template	=	"Users/{userId}"
 	description	=	"Returns the User object for userId"
 	template_parameter {
 		name	=	"userId"
