@@ -9,7 +9,7 @@
       ]
     },
     "openapi-to-terraform": {
-      "version": "0.0.3",
+      "version": "0.0.4",
       "commands": [
         "openapi-to-terraform"
       ]

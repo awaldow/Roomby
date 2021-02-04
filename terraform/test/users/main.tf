@@ -176,10 +176,6 @@ resource "azurerm_key_vault_secret" "userssqldbconnection" {
   key_vault_id = azurerm_key_vault.roombyuserstest.id
 }
 
-module "apim_apis_and_operations" {
-  source = "./1"
-}
-
 output "rooms_app_service_name" {
   value       = azurerm_app_service.roombyuserstest.name
   description = "The App Service name for the test Users API"
