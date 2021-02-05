@@ -24,6 +24,28 @@
             <param name="householdToCreate">A Household object. See <see cref="!:Roomby.API.Users.Mediators.CreateHouseholdValidator"/> for validation information</param>
             <returns>The created Household object</returns>
         </member>
+        <member name="M:Roomby.API.Users.v1.Controllers.HouseholdsController.UpdateRoomAsync(System.Guid,Roomby.API.Models.Household)">
+            <summary>
+            UpdateHouseholdAsync(Guid householdId, [FromBody] Household householdToUpdate)
+            </summary>
+            <remarks>
+            Updates the Household <paramref name="householdId"/> with the values from <paramref name="householdToUpdate"/> if it exists; if <paramref name="householdId"/>
+            is omitted, a new Household will be created instead.
+            </remarks>
+            <param name="householdId">Guid ID for the Household to update</param>
+            <param name="householdToUpdate">Household object with the request changes filled in</param>
+            <returns>The updated Household object, or a newly created one if <paramref name="householdId"/> is omitted</returns>
+        </member>
+        <member name="M:Roomby.API.Users.v1.Controllers.HouseholdsController.DeleteHouseholdAsync(System.Guid)">
+            <summary>
+            DeleteHouseholdAsync(Guid householdId)
+            </summary>
+            <remarks>
+            Deletes the Household with the given <paramref name="householdId"/>
+            </remarks>
+            <param name="householdId">Household ID for the Household to delete</param>
+            <returns>NoContent if successfully deleted; if ID can't be found or is not provided, BadRequest is returned.</returns>
+        </member>
         <member name="M:Roomby.API.Users.v1.Controllers.UsersController.GetUserAsync(System.Guid)">
             <summary>
             GetUserAsync(Guid userId)

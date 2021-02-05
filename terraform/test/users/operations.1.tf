@@ -46,6 +46,106 @@ resource "azurerm_api_management_api_operation" "GetHouseholdAsync" {
 		}
 	}
 }
+resource "azurerm_api_management_api_operation" "UpdateHouseholdAsync" {
+	operation_id	=	"UpdateHouseholdAsync"
+	api_name	=	azurerm_api_management_api.roombyusersapi_rev1.name
+	api_management_name	=	data.azurerm_api_management.roombyapim.name
+	resource_group_name	=	data.azurerm_api_management.roombyapim.resource_group_name
+	display_name	=	"UpdateHouseholdAsync(Guid householdId, [FromBody] Household householdToUpdate)"
+	method	=	"PUT"
+	url_template	=	"Households/{householdId}"
+	description	=	"Updates the Household householdId with the values from householdToUpdate if it exists; if householdId is omitted, a new Household will be created instead."
+	template_parameter {
+		name	=	"householdId"
+		required	=	true
+		type	=	"uuid"
+		description	=	"Guid ID for the Household to update"
+	}
+	response {
+		status_code	=	401
+		description	=	"Unauthorized"
+		representation {
+			content_type	=	"application/json"
+		}
+	}
+	response {
+		status_code	=	403
+		description	=	"Forbidden"
+		representation {
+			content_type	=	"application/json"
+		}
+	}
+	response {
+		status_code	=	500
+		description	=	"Server Error"
+	}
+	response {
+		status_code	=	400
+		description	=	"Bad Request"
+		representation {
+			content_type	=	"application/json"
+		}
+	}
+	response {
+		status_code	=	201
+		description	=	"Success"
+		representation {
+			content_type	=	"application/json"
+		}
+	}
+	response {
+		status_code	=	200
+		description	=	"Success"
+		representation {
+			content_type	=	"application/json"
+		}
+	}
+}
+resource "azurerm_api_management_api_operation" "DeleteHouseholdAsync" {
+	operation_id	=	"DeleteHouseholdAsync"
+	api_name	=	azurerm_api_management_api.roombyusersapi_rev1.name
+	api_management_name	=	data.azurerm_api_management.roombyapim.name
+	resource_group_name	=	data.azurerm_api_management.roombyapim.resource_group_name
+	display_name	=	"DeleteHouseholdAsync(Guid householdId)"
+	method	=	"DELETE"
+	url_template	=	"Households/{householdId}"
+	description	=	"Deletes the Household with the given householdId"
+	template_parameter {
+		name	=	"householdId"
+		required	=	true
+		type	=	"uuid"
+		description	=	"Household ID for the Household to delete"
+	}
+	response {
+		status_code	=	401
+		description	=	"Unauthorized"
+		representation {
+			content_type	=	"application/json"
+		}
+	}
+	response {
+		status_code	=	403
+		description	=	"Forbidden"
+		representation {
+			content_type	=	"application/json"
+		}
+	}
+	response {
+		status_code	=	500
+		description	=	"Server Error"
+	}
+	response {
+		status_code	=	400
+		description	=	"Bad Request"
+		representation {
+			content_type	=	"application/json"
+		}
+	}
+	response {
+		status_code	=	204
+		description	=	"Success"
+	}
+}
 resource "azurerm_api_management_api_operation" "CreateHouseholdAsync" {
 	operation_id	=	"CreateHouseholdAsync"
 	api_name	=	azurerm_api_management_api.roombyusersapi_rev1.name

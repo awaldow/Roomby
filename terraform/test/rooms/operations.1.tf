@@ -142,8 +142,8 @@ resource "azurerm_api_management_api_operation" "UpdateRoom" {
 		}
 	}
 }
-resource "azurerm_api_management_api_operation" "DeleteRoom" {
-	operation_id	=	"DeleteRoom"
+resource "azurerm_api_management_api_operation" "DeleteRoomAsync" {
+	operation_id	=	"DeleteRoomAsync"
 	api_name	=	azurerm_api_management_api.roombyroomsapi_rev1.name
 	api_management_name	=	data.azurerm_api_management.roombyapim.name
 	resource_group_name	=	data.azurerm_api_management.roombyapim.resource_group_name

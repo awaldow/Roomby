@@ -230,7 +230,7 @@
         ],
         "summary": "DeleteRoomAsync(Guid roomId)",
         "description": "Deletes the Room with the given roomId",
-        "operationId": "DeleteRoom",
+        "operationId": "DeleteRoomAsync",
         "parameters": [
           {
             "name": "roomId",

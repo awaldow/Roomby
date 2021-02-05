@@ -167,7 +167,7 @@ namespace Roomby.API.Rooms.v1.Controllers
         /// </remarks>
         /// <param name="roomId">Room ID for the Room to delete</param>
         /// <returns>NoContent if successfully deleted; if ID can't be found or is not provided, BadRequest is returned.</returns>
-        [HttpDelete("{roomId}", Name = "DeleteRoom")]
+        [HttpDelete("{roomId}", Name = "DeleteRoomAsync")]
         [MapToApiVersion("1")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
