@@ -40,6 +40,8 @@ resource "azurerm_api_management_api_operation" "GetRoomsForHouseholdAsync" {
 	}
 }
 
+
+
 resource "azurerm_api_management_api_operation" "GetRoomAsync" {
 	operation_id	=	"GetRoomAsync"
 	api_name	=	azurerm_api_management_api.roombyroomsapi_rev1.name
@@ -88,6 +90,8 @@ resource "azurerm_api_management_api_operation" "GetRoomAsync" {
 		}
 	}
 }
+
+
 
 resource "azurerm_api_management_api_operation" "UpdateRoom" {
 	operation_id	=	"UpdateRoom"
@@ -145,6 +149,8 @@ resource "azurerm_api_management_api_operation" "UpdateRoom" {
 	}
 }
 
+
+
 resource "azurerm_api_management_api_operation" "DeleteRoomAsync" {
 	operation_id	=	"DeleteRoomAsync"
 	api_name	=	azurerm_api_management_api.roombyroomsapi_rev1.name
@@ -191,6 +197,8 @@ resource "azurerm_api_management_api_operation" "DeleteRoomAsync" {
 	}
 }
 
+
+
 resource "azurerm_api_management_api_operation" "CreateRoomAsync" {
 	operation_id	=	"CreateRoomAsync"
 	api_name	=	azurerm_api_management_api.roombyroomsapi_rev1.name
@@ -233,5 +241,6 @@ resource "azurerm_api_management_api_operation" "CreateRoomAsync" {
 		}
 	}
 }
+
 
 

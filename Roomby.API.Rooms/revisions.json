@@ -1,0 +1,17 @@
+{
+  "/api/v1/Room/forHousehold/{householdId}^get": [
+    "1"
+  ],
+  "/api/v1/Room/{roomId}^get": [
+    "1"
+  ],
+  "/api/v1/Room/{roomId}^put": [
+    "1"
+  ],
+  "/api/v1/Room/{roomId}^delete": [
+    "1"
+  ],
+  "/api/v1/Room^post": [
+    "1"
+  ]
+}

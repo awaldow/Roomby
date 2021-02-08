@@ -47,6 +47,8 @@ resource "azurerm_api_management_api_operation" "GetHouseholdAsync" {
 	}
 }
 
+
+
 resource "azurerm_api_management_api_operation" "UpdateHouseholdAsync" {
 	operation_id	=	"UpdateHouseholdAsync"
 	api_name	=	azurerm_api_management_api.roombyusersapi_rev1.name
@@ -103,6 +105,8 @@ resource "azurerm_api_management_api_operation" "UpdateHouseholdAsync" {
 	}
 }
 
+
+
 resource "azurerm_api_management_api_operation" "DeleteHouseholdAsync" {
 	operation_id	=	"DeleteHouseholdAsync"
 	api_name	=	azurerm_api_management_api.roombyusersapi_rev1.name
@@ -149,6 +153,8 @@ resource "azurerm_api_management_api_operation" "DeleteHouseholdAsync" {
 	}
 }
 
+
+
 resource "azurerm_api_management_api_operation" "CreateHouseholdAsync" {
 	operation_id	=	"CreateHouseholdAsync"
 	api_name	=	azurerm_api_management_api.roombyusersapi_rev1.name
@@ -191,6 +197,8 @@ resource "azurerm_api_management_api_operation" "CreateHouseholdAsync" {
 		}
 	}
 }
+
+
 
 resource "azurerm_api_management_api_operation" "GetUserAsync" {
 	operation_id	=	"GetUserAsync"
@@ -241,6 +249,8 @@ resource "azurerm_api_management_api_operation" "GetUserAsync" {
 	}
 }
 
+
+
 resource "azurerm_api_management_api_operation" "CreateUserAsync" {
 	operation_id	=	"CreateUserAsync"
 	api_name	=	azurerm_api_management_api.roombyusersapi_rev1.name
@@ -283,5 +293,6 @@ resource "azurerm_api_management_api_operation" "CreateUserAsync" {
 		}
 	}
 }
+
 
 
