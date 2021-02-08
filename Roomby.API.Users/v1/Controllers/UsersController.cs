@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using openapi_to_terraform.Extensions.Attributes;
 using Roomby.API.Models;
 using Roomby.API.Users.v1.Mediators;
 using System;
@@ -12,6 +13,7 @@ namespace Roomby.API.Users.v1.Controllers
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1")]
+    [Revision(new int[] { 1 })]
     [ApiController]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]

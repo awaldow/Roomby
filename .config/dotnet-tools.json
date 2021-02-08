@@ -9,13 +9,13 @@
       ]
     },
     "openapi-to-terraform": {
-      "version": "0.0.13-alpha2",
+      "version": "0.0.13-alpha3",
       "commands": [
         "openapi-to-terraform"
       ]
     },
     "openapi-to-terraform.RevisionCli": {
-      "version": "0.0.1-alpha2",
+      "version": "0.0.1-alpha3",
       "commands": [
         "openapi-to-terraform-rev-cli"
       ]

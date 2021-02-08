@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using openapi_to_terraform.Extensions.Attributes;
 using Roomby.API.Models;
 using Roomby.API.Users.Infrastructure.Exceptions;
 using Roomby.API.Users.v1.Mediators;
@@ -13,6 +14,7 @@ namespace Roomby.API.Users.v1.Controllers
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1")]
+    [Revision(new int[] { 1 })]
     [ApiController]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -20,7 +22,7 @@ namespace Roomby.API.Users.v1.Controllers
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public class HouseholdsController : ControllerBase
     {
-         private readonly IMediator _mediator;
+        private readonly IMediator _mediator;
 
         private readonly ILogger<HouseholdsController> _logger;
 
@@ -77,7 +79,7 @@ namespace Roomby.API.Users.v1.Controllers
         [Consumes("application/json")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(Household), StatusCodes.Status201Created)]
-        
+
         public async Task<ActionResult<Household>> CreateRoomAsync(Household householdToCreate)
         {
             // TODO: use bad requests here to test global 500 filter, maybe we don't need those try catches in the other controller actions
