@@ -171,7 +171,6 @@ stages:
   - deployment: Test
     displayName: 'Test'
     environment: test
-    condition: eq(1,2)
     dependsOn: 'Provision_Test'
     variables:
     - group: Roomby Users API Secrets Test

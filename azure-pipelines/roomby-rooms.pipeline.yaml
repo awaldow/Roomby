@@ -171,7 +171,6 @@ stages:
     displayName: 'Test'
     environment: test
     dependsOn: 'Provision_Test'
-    condition: eq(1,2)
     variables:
     - group: Roomby Rooms API Secrets Test
     - name: webAppName
