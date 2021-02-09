@@ -40,7 +40,7 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="4.2.0" />
-    <PackageReference Include="openapi-to-terraform.Extensions" Version="0.0.1-alpha4" />
+    <PackageReference Include="openapi-to-terraform.Extensions" Version="0.0.1-alpha5" />
   </ItemGroup>
 
   <ItemGroup>

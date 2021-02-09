@@ -15,7 +15,7 @@ namespace Roomby.API.Rooms.v1.Controllers
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1")]
-    [Revision(new int[] { 1 })]
+    [Revisions(1)]
     [ApiController]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
