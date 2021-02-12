@@ -6,7 +6,7 @@
           "files": [
             "**.csproj"
           ],
-          "src": "C:\\Users\\Addison\\source\\repos\\Roomby.API"
+          "src": "C:\\Users\\Addison\\source\\repos\\Roomby.API\\"
         }
       ],
       "dest": "api",
