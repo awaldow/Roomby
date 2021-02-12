@@ -1,21 +1,23 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomby.API.Rooms", "Roomby.API.Rooms\Roomby.API.Rooms.csproj", "{4D91ED44-576D-4E86-B02B-F63CF7189F3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomby.API.Rooms", "Roomby.API.Rooms\Roomby.API.Rooms.csproj", "{4D91ED44-576D-4E86-B02B-F63CF7189F3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomby.API.Users", "Roomby.API.Users\Roomby.API.Users.csproj", "{BF48F06D-FAB7-49A2-B965-6CFAC682C10A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomby.API.Users", "Roomby.API.Users\Roomby.API.Users.csproj", "{BF48F06D-FAB7-49A2-B965-6CFAC682C10A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomby.API.Users.Tests", "Roomby.API.Users.Tests\Roomby.API.Users.Tests.csproj", "{53DBBF0E-CCC5-4371-9CA0-75739940FF6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomby.API.Users.Tests", "Roomby.API.Users.Tests\Roomby.API.Users.Tests.csproj", "{53DBBF0E-CCC5-4371-9CA0-75739940FF6B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomby.API.Rooms.Tests", "Roomby.API.Rooms.Tests\Roomby.API.Rooms.Tests.csproj", "{7BA15B6B-0573-4327-A1C4-38543D36C13A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomby.API.Rooms.Tests", "Roomby.API.Rooms.Tests\Roomby.API.Rooms.Tests.csproj", "{7BA15B6B-0573-4327-A1C4-38543D36C13A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomby.API.Users.Data", "Roomby.API.Users.Data\Roomby.API.Users.Data.csproj", "{DA6A0A2E-3DE3-4AFA-BD26-38C53394444F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomby.API.Users.Data", "Roomby.API.Users.Data\Roomby.API.Users.Data.csproj", "{DA6A0A2E-3DE3-4AFA-BD26-38C53394444F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomby.API.Rooms.Data", "Roomby.API.Rooms.Data\Roomby.API.Rooms.Data.csproj", "{E37645D4-B39D-4C78-91E8-583493594BD6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomby.API.Rooms.Data", "Roomby.API.Rooms.Data\Roomby.API.Rooms.Data.csproj", "{E37645D4-B39D-4C78-91E8-583493594BD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomby.API.Models", "Roomby.API.Models\Roomby.API.Models.csproj", "{38BE0434-E8F0-4553-91BD-87B2A605D2B9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Roomby.API.Models", "Roomby.API.Models\Roomby.API.Models.csproj", "{38BE0434-E8F0-4553-91BD-87B2A605D2B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Roomby.API.Docs", "Roomby.API.Docs\Roomby.API.Docs.csproj", "{50C16784-F946-4364-AEB6-354A60D1DEF2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,9 +27,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{4D91ED44-576D-4E86-B02B-F63CF7189F3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -114,5 +113,23 @@ Global
 		{38BE0434-E8F0-4553-91BD-87B2A605D2B9}.Release|x64.Build.0 = Release|Any CPU
 		{38BE0434-E8F0-4553-91BD-87B2A605D2B9}.Release|x86.ActiveCfg = Release|Any CPU
 		{38BE0434-E8F0-4553-91BD-87B2A605D2B9}.Release|x86.Build.0 = Release|Any CPU
+		{50C16784-F946-4364-AEB6-354A60D1DEF2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50C16784-F946-4364-AEB6-354A60D1DEF2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50C16784-F946-4364-AEB6-354A60D1DEF2}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{50C16784-F946-4364-AEB6-354A60D1DEF2}.Debug|x64.Build.0 = Debug|Any CPU
+		{50C16784-F946-4364-AEB6-354A60D1DEF2}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{50C16784-F946-4364-AEB6-354A60D1DEF2}.Debug|x86.Build.0 = Debug|Any CPU
+		{50C16784-F946-4364-AEB6-354A60D1DEF2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50C16784-F946-4364-AEB6-354A60D1DEF2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50C16784-F946-4364-AEB6-354A60D1DEF2}.Release|x64.ActiveCfg = Release|Any CPU
+		{50C16784-F946-4364-AEB6-354A60D1DEF2}.Release|x64.Build.0 = Release|Any CPU
+		{50C16784-F946-4364-AEB6-354A60D1DEF2}.Release|x86.ActiveCfg = Release|Any CPU
+		{50C16784-F946-4364-AEB6-354A60D1DEF2}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A4B7E68A-670F-4FA0-8FB0-73C23353BC33}
 	EndGlobalSection
 EndGlobal
