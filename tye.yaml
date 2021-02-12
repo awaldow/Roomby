@@ -1,0 +1,52 @@
+name: roomby.apis
+services:
+- name: roomsapi
+  dockerFile: Roomby.API.Rooms/Dockerfile
+  bindings:
+  - protocol: https
+    port: 5001
+  
+- name: usersapi
+  dockerFile: Roomby.API.Users/Dockerfile
+  bindings:
+  - protocol: https
+    port: 5002
+
+- name: mssql-rooms
+  image: microsoft/mssql-server-linux
+  env:
+  - name: "MSSQL_SA_PASSWORD"
+    value: "P@ssw0rd"
+  - name: ACCEPT_EULA
+    value: "Y"
+  bindings:
+  - port: 1433
+    connectionString: "Server=${host},${port};Database=Roomby.API.Rooms;User Id=sa;Password=${env:MSSQL_SA_PASSWORD};"
+
+- name: mssql-users
+  image: microsoft/mssql-server-linux
+  env:
+  - name: "MSSQL_SA_PASSWORD"
+    value: "P@ssw0rd"
+  - name: ACCEPT_EULA
+    value: "Y"
+  bindings:
+  - port: 1433
+    connectionString: "Server=${host},${port};Database=Roomby.API.Users;User Id=sa;Password=${env:MSSQL_SA_PASSWORD};"
+
+- name: azurite
+  image: mcr.microsoft.com/azure-storage/azurite:alpha
+  bindings:
+  - name: blob
+    port: 10000
+    containerPort: 10000
+    protocol: http
+  - name: queue
+    port: 10001
+    containerPort: 10001
+    protocol: http
+  - name: table
+    port: 10002
+    containerPort: 10002
+    protocol: http
+  

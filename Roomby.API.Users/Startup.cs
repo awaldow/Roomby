@@ -1,58 +1,83 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
+using HealthChecks.UI.Client;
+using MediatR;
+using MediatR.Extensions.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
+using Roomby.API.Users.Extensions;
 
 namespace Roomby.API.Users
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            WebHostEnv = env;
         }
 
         public IConfiguration Configuration { get; }
+        public IWebHostEnvironment WebHostEnv { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddApplicationInsightsTelemetry(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Roomby.API.Users", Version = "v1" });
+                options.ConnectionString = Configuration.GetSection("APPINSIGHTS_CONNECTIONSTRING").Value;
             });
+
+            var domainAssembly = typeof(Startup).GetTypeInfo().Assembly;
+
+            services.AddUsersMVC(Configuration)
+                .AddUsersDbContext(Configuration, WebHostEnv)
+                .AddSwagger(Configuration)
+                .AddCustomHealthCheck(Configuration)
+                .AddMediatR(domainAssembly)
+                .AddFluentValidation(new[] { domainAssembly });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Roomby.API.Users v1"));
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
+            app.UseCors();
+            app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            //app.UseSwaggerandSwaggerUI(Configuration, env, provider);
+            app.UseSwaggerandRedoc(Configuration, env, provider);
+
+             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
+                {
+                    Predicate = _ => true,
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                });
+                endpoints.MapHealthChecks("/live", new HealthCheckOptions()
+                {
+                    Predicate = r => r.Name.Contains("live")
+                });
+                endpoints.MapHealthChecks("/ready", new HealthCheckOptions()
+                {
+                    Predicate = r => r.Tags.Contains("services")
+                });
+
                 endpoints.MapControllers();
             });
         }

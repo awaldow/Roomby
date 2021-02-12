@@ -1,12 +1,10 @@
 name: Roomby.API.Shared-$(Date:yyyyMMdd)$(Rev:.r)
+trigger:
+  branches:
+    include:
+    - master
 
 variables:
-- name: buildConfiguration
-  value: 'Release'
-- name: projectPath
-  value: '**/Roomby.API.Rooms.csproj'
-- name: testProjectPath
-  value: '**/Roomby.API.Rooms.[Tt]ests/*.csproj'
 - name: terraformTestPath
   value: 'terraform/test/shared/'
 - name: terraformProdPath
@@ -17,41 +15,16 @@ variables:
   value: 'Visual Studio Enterprise'
 
 stages:
-- stage: 'Build'
-  displayName: 'Build the API'
-  jobs: 
-  - job: 'Build'
-    displayName: 'Build job'
-    pool:
-      vmImage: 'windows-2019'
-
-    steps:
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Artifact: Terraform test'
-      inputs:
-        PathToPublish: '$(terraformTestPath)'
-        ArtifactName: terraformtest
-
-    # - task: PublishBuildArtifacts@1
-    #   displayName: 'Publish Artifact: Terraform prod'
-    #   inputs:
-    #     PathToPublish: '$(terraformProdPath)'
-    #     ArtifactName: terraformprod
-
-- stage: 'Deploy'
-  dependsOn: Build
-  displayName: 'Deploy the API'
+- stage: 'Provision'
+  displayName: 'Provision the environments using terraform'
   jobs:
   - job: 'Provision_Test'
     displayName: 'Provision Test infrastructure'
     variables:
-      - group: Roomby Rooms Terraform Test Backend Config
+      - group: Roomby Shared Terraform Test Backend Config
     pool:
       vmImage: 'windows-2019'
     steps:
-      - download: current
-        artifact: terraformtest
-
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@0
         inputs:
           terraformVersion: '0.13.6'
@@ -61,28 +34,28 @@ stages:
         displayName: 'Terraform init'
         inputs:
           command: init
-          backendServiceArm: 'Visual Studio Enterprise'
+          backendServiceArm: $(testSubscription)
           backendAzureRmResourceGroupName: '$(backendResourceGroup)'
           backendAzureRmStorageAccountName: $(backendStorageAccountName)
           backendAzureRmContainerName: $(backendContainerName)
           backendAzureRmKey: $(backendKeyFile)
-          workingDirectory: '$(Pipeline.Workspace)/terraformtest'
+          workingDirectory: '$(terraformTestPath)'
           
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
         inputs:
           command: plan
-          environmentServiceNameAzureRM: 'Visual Studio Enterprise'
+          environmentServiceNameAzureRM: $(testSubscription)
           commandOptions: -out=terraform.plan -var "resource_group_location=$(resourceGroupLocation)" -var "sql_server_admin=$(sqlServerAdmin)" -var "sql_server_admin_pass=$(sqlServerAdminPass)"
-          workingDirectory: '$(Pipeline.Workspace)/terraformtest'
+          workingDirectory: '$(terraformTestPath)'
         displayName: Terraform Plan
 
       - task: ms-devlabs.custom-terraform-tasks.custom-terraform-release-task.TerraformTaskV1@0
         name: terraformApply
         inputs:
           command: apply
-          environmentServiceNameAzureRM: 'Visual Studio Enterprise'
+          environmentServiceNameAzureRM: $(testSubscription)
           commandOptions: terraform.plan
-          workingDirectory: '$(Pipeline.Workspace)/terraformtest'
+          workingDirectory: '$(terraformTestPath)'
         displayName: Terraform Apply
 
       - powershell: |

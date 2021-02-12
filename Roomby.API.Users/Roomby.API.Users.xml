@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Roomby.API.Users</name>
+    </assembly>
+    <members>
+        <member name="M:Roomby.API.Users.v1.Controllers.HouseholdsController.GetHouseholdAsync(System.Guid)">
+            <summary>
+            GetHouseholdAsync(Guid householdId)
+            </summary>
+            <remarks>
+            Returns the Household object for <paramref name="householdId"/>
+            </remarks>
+            <param name="householdId">Household ID for the Household to get</param>
+            <returns>Household object with id <paramref name="householdId"/></returns>
+        </member>
+        <member name="M:Roomby.API.Users.v1.Controllers.HouseholdsController.CreateRoomAsync(Roomby.API.Models.Household)">
+            <summary>
+            CreateHouseholdAsync(Household householdToCreate)
+            </summary>
+            <remarks>
+            Creates the provided <paramref name="householdToCreate"/>
+            </remarks>
+            <param name="householdToCreate">A Household object. See <see cref="!:Roomby.API.Users.Mediators.CreateHouseholdValidator"/> for validation information</param>
+            <returns>The created Household object</returns>
+        </member>
+        <member name="M:Roomby.API.Users.v1.Controllers.UsersController.GetUserAsync(System.Guid)">
+            <summary>
+            GetUserAsync(Guid userId)
+            </summary>
+            <remarks>
+            Returns the User object for <paramref name="userId"/>
+            </remarks>
+            <param name="userId">User ID for the User to get</param>
+            <returns>User object with id <paramref name="userId"/></returns>
+        </member>
+        <member name="M:Roomby.API.Users.v1.Controllers.UsersController.CreateUserAsync(Roomby.API.Models.User)">
+            <summary>
+            CreateUserAsync(User userToCreate)
+            </summary>
+            <remarks>
+            Creates the provided <paramref name="userToCreate"/>
+            </remarks>
+            <param name="userToCreate">A User object. See <see cref="!:Roomby.API.Users.Mediators.CreateUserValidator"/> for validation information</param>
+            <returns>The created User object</returns>
+        </member>
+    </members>
+</doc>

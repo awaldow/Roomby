@@ -7,7 +7,7 @@ terraform {
   required_providers {
     azurerm = {
       source = "hashicorp/azurerm"
-      version = "~> 2.44.0"
+      version = "~> 2.45.1"
     }
   }
 }
@@ -22,31 +22,60 @@ provider "azurerm" {
 
 data "azurerm_client_config" "current" {}
 
-variable "resource_group_name" {
-  default = "rg-roomby-users-test"
-  description = "The name of the resource group"
-}
-
-variable "resource_group_location" {
-  description = "The location of the resource group (West US, Central US, etc.)"
-}
-
-variable "storage_account_name" {
-  default = "stroombytest"
-  description = "The name of the storage account for Roomby"
-}
-
-variable "tasks_table_name" {
-  default = "roombytasks"
-}
-
-variable "purchases_table_name" {
-  default = "roombypurchases"
-}
-
 resource "azurerm_resource_group" "roombytest" {
   name     = var.resource_group_name
   location = var.resource_group_location
+}
+
+resource "azurerm_application_insights" "roombyappi" {
+  name                = var.application_insights_name
+  location            = azurerm_resource_group.roombytest.location
+  resource_group_name = azurerm_resource_group.roombytest.name
+  application_type    = "web"
+
+  tags = {
+    environment = "test"
+  }
+}
+
+resource "azurerm_app_service_plan" "roombyplan" {
+  name                = var.app_service_plan_name
+  location            = azurerm_resource_group.roombytest.location
+  resource_group_name = azurerm_resource_group.roombytest.name
+
+  sku {
+    tier = "Basic"
+    size = "B1"
+  }
+
+  tags = {
+    environment = "test"
+  }
+}
+
+resource "azurerm_storage_account" "roombysqlstorage" {
+  name = var.sqlstorage_account_name
+  resource_group_name      = azurerm_resource_group.roombytest.name
+  location                 = azurerm_resource_group.roombytest.location
+  account_tier             = "Standard"
+  account_replication_type = "RAGRS"
+
+  tags = {
+    environment = "test"
+  }
+}
+
+resource "azurerm_sql_server" "roombysqlserver" {
+  name                         = var.sql_server_name
+  resource_group_name          = azurerm_resource_group.roombytest.name
+  location                     = azurerm_resource_group.roombytest.location
+  version                      = "12.0"
+  administrator_login          = var.sql_server_admin
+  administrator_login_password = var.sql_server_admin_pass
+
+  tags = {
+    environment = "test"
+  }
 }
 
 resource "azurerm_storage_account" "roombystorage" {

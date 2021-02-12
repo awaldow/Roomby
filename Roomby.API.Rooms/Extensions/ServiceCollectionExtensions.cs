@@ -11,6 +11,7 @@ using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Roomby.API.Rooms;
 using Roomby.API.Rooms.Data;
+using Roomby.API.Rooms.Infrastructure.Filters;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Reflection;
@@ -47,7 +48,7 @@ namespace Rooms.API.Rooms.Extensions
 
             services.AddMvc(options =>
             {
-                //options.Filters.Add(typeof(HttpGlobalExceptionFilter));
+                options.Filters.Add(typeof(HttpGlobalExceptionFilter));
             })
             .AddNewtonsoftJson(x =>
             {
@@ -135,20 +136,29 @@ namespace Rooms.API.Rooms.Extensions
 
         public static IServiceCollection AddRoomsDbContext(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment env)
         {
-            services.AddDbContext<RoomsContext>(options =>
+            if (env.IsDevelopment())
             {
-                options.UseSqlServer(configuration.GetConnectionString("RoombyRoomSql"), sqlServerOptionsAction: sqlOptions =>
+                services.AddDbContext<RoomsContext>(options =>
                 {
-                    sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
-                    sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
-                });
-
-                    // TODO: Limit this to dev and staging
-                if (env.IsDevelopment())
-                {
+                    options.UseSqlServer(configuration.GetConnectionString("mssql-rooms"), sqlServerOptionsAction: sqlOptions =>
+                    {
+                        sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
+                        sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                    });
                     options.EnableSensitiveDataLogging();
-                }
-            });
+                });
+            }
+            else
+            {
+                services.AddDbContext<RoomsContext>(options =>
+                {
+                    options.UseSqlServer(configuration.GetConnectionString("RoombyRoomSql"), sqlServerOptionsAction: sqlOptions =>
+                    {
+                        sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
+                        sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
+                    });
+                });
+            }
 
 
             //services.AddDbContext<IntegrationEventLogContext>(options =>
