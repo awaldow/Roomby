@@ -53,6 +53,23 @@ resource "azurerm_app_service_plan" "roombyplan" {
   }
 }
 
+resource "azurerm_storage_account" "roombydocs" {
+  name = var.docs_storage_account_name
+  resource_group_name      = azurerm_resource_group.roombytest.name
+  location                 = azurerm_resource_group.roombytest.location
+  account_tier             = "Standard"
+  account_replication_type = "RAGRS"
+  enable_https_traffic_only = true
+
+  static_website {
+    index_document = "index.html"
+  }
+
+  tags = {
+    environment = "test"
+  }
+}
+
 resource "azurerm_storage_account" "roombysqlstorage" {
   name = var.sqlstorage_account_name
   resource_group_name      = azurerm_resource_group.roombytest.name

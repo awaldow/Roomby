@@ -7,6 +7,10 @@ variable "resource_group_location" {
   description = "The location of the resource group (West US, Central US, etc.)"
 }
 
+variable "docs_storage_account_name" {
+  default = "stroombydocs"
+}
+
 variable "storage_account_name" {
   default = "stroombytest"
   description = "The name of the storage account for Roomby"
