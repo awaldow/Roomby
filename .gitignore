@@ -76,3 +76,5 @@ terraform.rc
 **/.terraform.lock.hcl
 
 node_modules
+
+**/log.txt
