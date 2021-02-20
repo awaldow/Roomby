@@ -57,8 +57,8 @@
     <Exec Command="BUILD_CONFIGURATION=$(Configuration) ./genSwagger.ps1" LogStandardErrorAsError="True" ContinueOnError="False" WorkingDirectory="$(MSBuildProjectDirectory)" />
   </Target>
 
-  <Target Name="NSwag" AfterTargets="GenerateSwaggerJsonWindows;GenerateSwaggerJsonLinux" Condition="'$(TF_BUILD)'!='True'">
-    <Exec ConsoleToMSBuild="true" ContinueOnError="true" Command="$(NSwagExe_Net50) run nswag.json">
+  <Target Name="NSwag" AfterTargets="GenerateSwaggerJsonAndAPIMTerraform" Condition="'$(TF_BUILD)'!='True'">
+    <Exec ConsoleToMSBuild="true" ContinueOnError="true" Command="$(NSwagExe_Core31) run nswag.json">
       <Output TaskParameter="ExitCode" PropertyName="NSwagExitCode" />
       <Output TaskParameter="ConsoleOutput" PropertyName="NSwagOutput" />
     </Exec>

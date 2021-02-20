@@ -1,9 +1,9 @@
 {
     "runtime": "NetCore31",
-    "defaultVariables": "TypescriptOutputPath=..\\Roomby.API.Rooms.Client",
+    "defaultVariables": "TypescriptOutputPath=../Roomby.API.Rooms.Client",
     "documentGenerator": {
       "aspNetCoreToOpenApi": {
-        "project": "Api.csproj",
+        "project": "Roomby.API.Rooms.csproj",
         "msBuildProjectExtensionsPath": null,
         "configuration": null,
         "runtime": "",
@@ -63,7 +63,7 @@
         "typeScriptVersion": 2.7,
         "template": "Fetch",
         "promiseType": "Promise",
-        "httpClass": "HttpClient",
+        "httpClass": "Http",
         "useSingletonProvider": false,
         "injectionTokenType": "InjectionToken",
         "rxJsVersion": 6.0,
@@ -75,23 +75,23 @@
         "exportTypes": true,
         "wrapDtoExceptions": false,
         "exceptionClass": "ApiException",
-        "clientBaseClass": "",
+        "clientBaseClass": "AuthorizedApiBase",
         "wrapResponses": false,
         "wrapResponseMethods": [],
         "generateResponseClasses": true,
         "responseClass": "ApiResponse",
         "protectedMethods": [],
-        "configurationClass": null,
-        "useTransformOptionsMethod": false,
+        "configurationClass": "AuthClient",
+        "useTransformOptionsMethod": true,
         "useTransformResultMethod": false,
         "generateDtoTypes": true,
-        "operationGenerationMode": "MultipleClientsFromPathSegments",
-        "markOptionalProperties": false,
+        "operationGenerationMode": "MultipleClientsFromOperationId",
+        "markOptionalProperties": true,
         "generateCloneMethod": false,
         "typeStyle": "Class",
         "classTypes": [],
         "extendedClasses": [],
-        "extensionCode": "",
+        "extensionCode": "../Roomby.API.Rooms.Client/AuthorizedApiBase.ts",
         "generateDefaultValues": true,
         "excludedTypeNames": [],
         "excludedParameterNames": [],
@@ -99,7 +99,7 @@
         "generateConstructorInterface": true,
         "convertConstructorInterfaceData": false,
         "importRequiredTypes": true,
-        "useGetBaseUrlMethod": false,
+        "useGetBaseUrlMethod": true,
         "baseUrlTokenName": "API_BASE_URL",
         "queryNullValue": "",
         "inlineNamedDictionaries": false,
@@ -110,7 +110,7 @@
         "enumNameGeneratorType": null,
         "serviceHost": null,
         "serviceSchemes": null,
-        "output": "$(TypescriptOutputPath)/api.generated.clients.ts"
+        "output": "$(TypescriptOutputPath)/rooms.generated.clients.ts"
       }
     }
   }

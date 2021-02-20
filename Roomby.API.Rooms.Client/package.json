@@ -1,0 +1,19 @@
+{
+  "name": "roomby.rooms.client",
+  "version": "1.0.0",
+  "description": "Typescript client for Roomby.API.Rooms",
+  "main": "rooms.generated.clients.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "refreshVSToken": "vsts-npm-auth -config .npmrc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://dev.azure.com/tesselatedsky/Roomby/_git/Roomby.API"
+  },
+  "author": "Addison Waldow",
+  "license": "ISC",
+  "devDependencies": {
+    "moment": "^2.29.1"
+  }
+}

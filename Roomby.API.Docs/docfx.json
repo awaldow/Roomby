@@ -6,10 +6,12 @@
           "files": [
             "**.csproj"
           ],
-          "src": "C:\\Users\\Addison\\source\\repos\\Roomby.API\\"
+          "exclude": [ "**/bin/**", "**/obj/**", "**/*.Tests/**" ],
+          "src": "../"
         }
       ],
       "dest": "api",
+      "filter": "filterConfig.yml",
       "disableGitFeatures": false,
       "disableDefaultFilter": false
     }
