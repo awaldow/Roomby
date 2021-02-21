@@ -55,7 +55,8 @@
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "globalMetadata": {
-      "_appTitle": "Roomby API Docs"
+      "_appTitle": "Roomby API Docs",
+      "_title": "Roomby"
     },
     "template": [
       "default",
