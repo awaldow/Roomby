@@ -55,7 +55,7 @@
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
-      "roomby"
+      "templates/roomby"
     ],
     "postProcessors": [],
     "markdownEngineName": "markdig",
