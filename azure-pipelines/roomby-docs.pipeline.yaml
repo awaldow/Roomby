@@ -1,5 +1,14 @@
 name: Roomby.API.Docs-$(Date:yyyyMMdd)$(Rev:.r)
 trigger: none
+resources:
+  pipelines:
+    - pipeline: 'Roomby_API_Rooms'
+      project: Roomby
+      source: Roomby.API.Rooms
+      trigger:
+        branches: 
+          include:
+            - master 
 
 variables:
 - name: docsProjectPath
