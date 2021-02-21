@@ -22,11 +22,13 @@ stages:
         version: 5.x
 
     - task: DotNetCoreCLI@2
+      displayName: 'dotnet build'
       inputs:
         command: 'build'
         projects: '$(docsProjectPath)'
     
     - task: AzureFileCopy@4
+      displayName: 'Push to stroombydocs'
       inputs:
         SourcePath: '$(Pipeline.Workspace)\s\Roomby.API.Docs\_site\*'
         azureSubscription: 'Visual Studio Enterprise'
