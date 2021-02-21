@@ -31,7 +31,7 @@
             <remarks>
             Creates the provided <paramref name="roomToCreate"/>
             </remarks>
-            <param name="roomToCreate">A Room object. See <see cref="!:Roomby.API.Rooms.Mediators.CreateRoomValidator"/> for validation information</param>
+            <param name="roomToCreate">A Room object. See <see cref="T:Roomby.API.Rooms.v1.Mediators.CreateRoomValidator"/> for validation information</param>
             <returns>The created Room object</returns>
         </member>
         <member name="M:Roomby.API.Rooms.v1.Controllers.RoomController.UpdateRoomAsync(System.Guid,Roomby.API.Models.Room)">

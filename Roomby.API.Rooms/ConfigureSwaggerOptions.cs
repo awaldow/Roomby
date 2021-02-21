@@ -58,7 +58,6 @@ namespace Roomby.API.Rooms
             var xmlCommentsFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
             var xmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentsFile);
             options.IncludeXmlComments(xmlCommentsFullPath);
-            options.DescribeAllEnumsAsStrings();
 
             foreach (var description in provider.ApiVersionDescriptions)
             {

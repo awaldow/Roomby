@@ -21,7 +21,7 @@
             <remarks>
             Creates the provided <paramref name="householdToCreate"/>
             </remarks>
-            <param name="householdToCreate">A Household object. See <see cref="!:Roomby.API.Users.Mediators.CreateHouseholdValidator"/> for validation information</param>
+            <param name="householdToCreate">A Household object. See <see cref="T:Roomby.API.Users.v1.Mediators.CreateHouseholdValidator"/> for validation information</param>
             <returns>The created Household object</returns>
         </member>
         <member name="M:Roomby.API.Users.v1.Controllers.HouseholdsController.UpdateRoomAsync(System.Guid,Roomby.API.Models.Household)">
@@ -63,7 +63,7 @@
             <remarks>
             Creates the provided <paramref name="userToCreate"/>
             </remarks>
-            <param name="userToCreate">A User object. See <see cref="!:Roomby.API.Users.Mediators.CreateUserValidator"/> for validation information</param>
+            <param name="userToCreate">A User object. See <see cref="T:Roomby.API.Users.v1.Mediators.CreateUserValidator"/> for validation information</param>
             <returns>The created User object</returns>
         </member>
     </members>
