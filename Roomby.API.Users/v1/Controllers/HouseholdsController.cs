@@ -8,7 +8,6 @@ using Roomby.API.Users.Infrastructure.Exceptions;
 using Roomby.API.Users.v1.Mediators;
 using System;
 using System.Threading.Tasks;
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Roomby.API.Users.v1.Controllers
 {
@@ -72,7 +71,7 @@ namespace Roomby.API.Users.v1.Controllers
         /// <remarks>
         /// Creates the provided <paramref name="householdToCreate"/>
         /// </remarks>
-        /// <param name="householdToCreate">A Household object. See <see cref="Roomby.API.Users.Mediators.CreateHouseholdValidator"/> for validation information</param>
+        /// <param name="householdToCreate">A Household object. See <see cref="Roomby.API.Users.v1.Mediators.CreateHouseholdValidator"/> for validation information</param>
         /// <returns>The created Household object</returns>
         [HttpPost(Name = "CreateHouseholdAsync")]
         [MapToApiVersion("1")]
