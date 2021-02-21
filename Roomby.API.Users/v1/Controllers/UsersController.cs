@@ -7,7 +7,6 @@ using Roomby.API.Models;
 using Roomby.API.Users.v1.Mediators;
 using System;
 using System.Threading.Tasks;
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Roomby.API.Users.v1.Controllers
 {
@@ -71,7 +70,7 @@ namespace Roomby.API.Users.v1.Controllers
         /// <remarks>
         /// Creates the provided <paramref name="userToCreate"/>
         /// </remarks>
-        /// <param name="userToCreate">A User object. See <see cref="Roomby.API.Users.Mediators.CreateUserValidator"/> for validation information</param>
+        /// <param name="userToCreate">A User object. See <see cref="Roomby.API.Users.v1.Mediators.CreateUserValidator"/> for validation information</param>
         /// <returns>The created User object</returns>
         [HttpPost(Name = "CreateUserAsync")]
         [MapToApiVersion("1")]
