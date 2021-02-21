@@ -1,6 +1,6 @@
 {
   "globalMetadata": {
-    "appTitle": "Roomby API Docs"
+    "_appTitle": "Roomby API Docs"
   },
   "metadata": [
     {
@@ -58,6 +58,7 @@
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
     "template": [
+      "default",
       "templates/roomby"
     ],
     "postProcessors": [],
