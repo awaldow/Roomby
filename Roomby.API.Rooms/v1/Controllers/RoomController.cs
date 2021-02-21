@@ -9,7 +9,6 @@ using Roomby.API.Rooms.v1.Mediators;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Roomby.API.Rooms.v1.Controllers
 {
@@ -98,7 +97,7 @@ namespace Roomby.API.Rooms.v1.Controllers
         /// <remarks>
         /// Creates the provided <paramref name="roomToCreate"/>
         /// </remarks>
-        /// <param name="roomToCreate">A Room object. See <see cref="Roomby.API.Rooms.Mediators.CreateRoomValidator"/> for validation information</param>
+        /// <param name="roomToCreate">A Room object. See <see cref="Roomby.API.Rooms.v1.Mediators.CreateRoomValidator"/> for validation information</param>
         /// <returns>The created Room object</returns>
         [HttpPost(Name = "CreateRoomAsync")]
         [MapToApiVersion("1")]
