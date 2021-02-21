@@ -1,0 +1,36 @@
+name: Roomby.API.Docs-$(Date:yyyyMMdd)$(Rev:.r)
+trigger: none
+
+variables:
+- name: docsProjectPath
+  value: '**/Roomby.API.Docs.csproj'
+- name: buildConfiguration
+  value: 'Release'
+
+stages:
+- stage: 'BuildAndDeploy'
+  displayName: 'Build and Deploy DocumentService.Docs'
+  jobs: 
+  - job: 'BuildAndDeploy'
+    pool:
+      vmImage: 'windows-2019'
+
+    steps:
+    - task: UseDotNet@2
+      displayName: 'Use .NET Core sdk 5.x'
+      inputs:
+        version: 5.x
+
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: 'build'
+        projects: '$(docsProjectPath)'
+    
+    - task: AzureFileCopy@4
+      inputs:
+        SourcePath: '$(Pipeline.Workspace)\s\Roomby.API.Docs\_site\*'
+        azureSubscription: 'Visual Studio Enterprise'
+        Destination: 'AzureBlob'
+        storage: 'stroombydocs'
+        ContainerName: '$web'
+    

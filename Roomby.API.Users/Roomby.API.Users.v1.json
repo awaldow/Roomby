@@ -76,6 +76,151 @@
             }
           }
         }
+      },
+      "put": {
+        "tags": [
+          "Households"
+        ],
+        "summary": "UpdateHouseholdAsync(Guid householdId, [FromBody] Household householdToUpdate)",
+        "description": "Updates the Household householdId with the values from householdToUpdate if it exists; if householdId\r\nis omitted, a new Household will be created instead.",
+        "operationId": "UpdateHouseholdAsync",
+        "parameters": [
+          {
+            "name": "householdId",
+            "in": "path",
+            "description": "Guid ID for the Household to update",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Guid ID for the Household to update",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Household object with the request changes filled in",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Household"
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Household"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Household"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Households"
+        ],
+        "summary": "DeleteHouseholdAsync(Guid householdId)",
+        "description": "Deletes the Household with the given householdId",
+        "operationId": "DeleteHouseholdAsync",
+        "parameters": [
+          {
+            "name": "householdId",
+            "in": "path",
+            "description": "Household ID for the Household to delete",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "Household ID for the Household to delete",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Success"
+          }
+        }
       }
     },
     "/api/v1/Households": {

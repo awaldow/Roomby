@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using openapi_to_terraform.Extensions.Attributes;
 using Roomby.API.Models;
 using Roomby.API.Rooms.Infrastructure.Exceptions;
 using Roomby.API.Rooms.v1.Mediators;
@@ -14,6 +15,7 @@ namespace Roomby.API.Rooms.v1.Controllers
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion("1")]
+    [Revisions(1)]
     [ApiController]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -167,7 +169,7 @@ namespace Roomby.API.Rooms.v1.Controllers
         /// </remarks>
         /// <param name="roomId">Room ID for the Room to delete</param>
         /// <returns>NoContent if successfully deleted; if ID can't be found or is not provided, BadRequest is returned.</returns>
-        [HttpDelete("{roomId}", Name = "DeleteRoom")]
+        [HttpDelete("{roomId}", Name = "DeleteRoomAsync")]
         [MapToApiVersion("1")]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

@@ -1,0 +1,42 @@
+name: Roomby.API.Clients-$(Date:yyyyMMdd)$(Rev:.r)
+trigger: none
+
+variables:
+- name: roomsClientPath
+  value: 'Roomby.API.Rooms.Client/'
+- name: usersClientPath
+  value: 'Roomby.API.Users.Client/'
+- name: testSubscription
+  value: 'Visual Studio Enterprise'
+- name: prodSubscription
+  value: 'Visual Studio Enterprise'
+
+stages:
+- stage: 'NPM Publish to Artifacts'
+  displayName: 'NPM Publish Clients to Artifacts'
+  jobs:
+  - job: 'NPM_Publish_Rooms'
+    displayName: 'Push Rooms NPM package to Artifacts'
+    pool:
+      vmImage: 'ubuntu-20.04'
+    steps:
+      - task: Npm@1
+        inputs:
+          command: 'publish'
+          workingDir: '$(roomsClientPath)'
+          verbose: true
+          publishRegistry: 'useFeed'
+          publishFeed: '8c518764-12c4-49f9-be20-50b7f4793712'
+
+  - job: 'NPM_Publish_Users'
+    displayName: 'Push Users NPM package to Artifacts'
+    pool:
+      vmImage: 'ubuntu-20.04'
+    steps:
+      - task: Npm@1
+        inputs:
+          command: 'publish'
+          workingDir: '$(usersClientPath)'
+          verbose: true
+          publishRegistry: 'useFeed'
+          publishFeed: '8c518764-12c4-49f9-be20-50b7f4793712'
